@@ -7,7 +7,7 @@ import movieplayer.be.Movie;
 
 /**
  * FXML Controller class
- *
+ * We're freaking awesome......
  * @author youPCbr0
  */
 public class MovieWindowController implements Initializable {
