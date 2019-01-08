@@ -40,6 +40,6 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="801.0" layoutY="642.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Exit" />
+      <Button layoutX="7.0" layoutY="642.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="849.0" text="Afslut" />
    </children>
 </AnchorPane>
