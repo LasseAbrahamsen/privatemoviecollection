@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="664.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="687.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.MainWindowController">
    <children>
-      <HBox layoutX="189.0" layoutY="52.0" prefHeight="59.0" prefWidth="597.0" spacing="20.0">
+      <HBox layoutX="259.0" layoutY="52.0" prefHeight="59.0" prefWidth="597.0" spacing="20.0">
          <children>
             <Button mnemonicParsing="false" onAction="#editCategories" prefHeight="45.0" prefWidth="101.0" text="Edit Categories" />
             <ComboBox prefHeight="45.0" prefWidth="150.0" promptText="Filter Category" />
@@ -24,7 +24,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <TableView fx:id="tableViewMain" layoutX="122.0" layoutY="119.0" prefHeight="507.0" prefWidth="664.0">
+      <TableView fx:id="tableViewMain" layoutX="180.0" layoutY="119.0" prefHeight="507.0" prefWidth="676.0">
         <columns>
           <TableColumn prefWidth="384.0" text="Movie Title" />
           <TableColumn minWidth="0.0" prefWidth="115.0" text="Category" />
@@ -32,14 +32,14 @@
             <TableColumn minWidth="0.0" prefWidth="78.0" text="Rating" />
         </columns>
       </TableView>
-      <Button layoutX="12.0" layoutY="546.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="101.0" text="Remove Movie" />
-      <Button layoutX="12.0" layoutY="119.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="80.0" prefWidth="101.0" text="Add Movie" />
-      <Button layoutX="12.0" layoutY="209.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="101.0" text="Edit Movie" />
-      <Label layoutX="250.0" layoutY="14.0" prefHeight="32.0" prefWidth="301.0" text="My Private Movie Collection">
+      <Button layoutX="12.0" layoutY="546.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="161.0" text="Remove Movie" />
+      <Button layoutX="12.0" layoutY="119.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="80.0" prefWidth="161.0" text="Add Movie" />
+      <Button layoutX="12.0" layoutY="209.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="161.0" text="Edit Movie" />
+      <Label layoutX="320.0" layoutY="14.0" prefHeight="32.0" prefWidth="301.0" text="My Private Movie Collection">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="731.0" layoutY="634.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Exit" />
+      <Button layoutX="801.0" layoutY="642.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Exit" />
    </children>
 </AnchorPane>
