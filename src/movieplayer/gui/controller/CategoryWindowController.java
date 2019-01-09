@@ -24,10 +24,8 @@ public class CategoryWindowController implements Initializable {
     
     CategoryModel cmodel = new CategoryModel();
 
-    @FXML
-    private Label labelTitle;
-    @FXML
-    private ListView<Category> listviewCategories;
+    @FXML private Label labelTitle;
+    @FXML private ListView<Category> listviewCategories;
 
     /**
      * Initializes the controller class.

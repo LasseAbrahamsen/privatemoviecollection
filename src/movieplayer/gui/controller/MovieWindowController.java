@@ -10,7 +10,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import movieplayer.be.Category;
 import movieplayer.be.Movie;
+import movieplayer.gui.model.CategoryModel;
 import movieplayer.gui.model.MovieModel;
 
 /**
@@ -24,12 +26,13 @@ public class MovieWindowController implements Initializable {
     @FXML private TextField textfieldFileChosen;
     @FXML private Label labelCategories;
     @FXML private ComboBox<Integer> comboboxRating;
-    @FXML private ComboBox<?> comboboxAddCategory;
+    @FXML private ComboBox<Category> comboboxAddCategory;
     
     private boolean isEditing = false;
     private Movie movie;
     
     MovieModel mmodel = new MovieModel();
+    CategoryModel cmodel = new CategoryModel();
 
     /**
      * Initializes the controller class.

@@ -1,8 +1,10 @@
 package movieplayer.gui.controller;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +17,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import movieplayer.be.Category;
 import movieplayer.be.Movie;
+import movieplayer.gui.model.CategoryModel;
 import movieplayer.gui.model.MovieModel;
 
 
@@ -25,31 +29,34 @@ import movieplayer.gui.model.MovieModel;
  * @author youPCbr0
  */
 public class MainWindowController implements Initializable {
+
+    @FXML private TableView<Movie> tableViewMain;
+    @FXML private TableColumn<Movie, String> colMovieTitle;
+    @FXML private TableColumn<Movie, String> colCategory;
+    @FXML private TableColumn<Movie, String> colRating;
+    @FXML private ComboBox<Category> comboboxFilterCategory;
+    @FXML private TextField textfieldSearch;
     
     MovieModel mmodel = new MovieModel();
-
-    @FXML
-    private TableView<Movie> tableViewMain;
-    @FXML
-    private TableColumn<Movie, String> colMovieTitle;
-    @FXML
-    private TableColumn<Movie, String> colCategory;
-    @FXML
-    private TableColumn<Movie, String> colRating;
-    @FXML
-    private ComboBox<?> comboboxFilterCategory;
-    @FXML
-    private TextField textfieldSearch;
+    CategoryModel cmodel = new CategoryModel();
+    private ObservableList<Movie> observableListMovie;
+    private ObservableList<Category> observableListCategory;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        colMovieTitle.setCellValueFactory(new PropertyValueFactory("title"));
+        observableListMovie = mmodel.getMovies();
+        observableListCategory = cmodel.getCategories();
+        
+        colMovieTitle.setCellValueFactory(new PropertyValueFactory("name"));
         colCategory.setCellValueFactory(new PropertyValueFactory("category"));
         colRating.setCellValueFactory(new PropertyValueFactory("rating"));
+        
         tableViewMain.setItems(mmodel.getMovies());
+        
+        comboboxFilterCategory.getItems().addAll(observableListCategory);
     }
     
     @FXML
@@ -80,6 +87,18 @@ public class MainWindowController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
+    
+    @FXML private void deleteMovie(ActionEvent event) {
+        Movie clickedMovie = tableViewMain.getSelectionModel().getSelectedItem();
+        //mmodel.deleteMovie(clickedMovie);
+    }
+    
+    @FXML private void search (KeyEvent event) {
+        //TODO
+    }
+    
+    
+    
     
     
 }
