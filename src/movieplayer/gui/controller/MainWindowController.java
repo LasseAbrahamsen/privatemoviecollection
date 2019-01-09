@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package movieplayer.gui.controller;
 
 import java.io.IOException;
@@ -14,10 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import movieplayer.be.Movie;
-import movieplayer.bll.Facade;
+import movieplayer.gui.model.MovieModel;
 
 
 /**
@@ -26,20 +25,35 @@ import movieplayer.bll.Facade;
  * @author youPCbr0
  */
 public class MainWindowController implements Initializable {
+    
+    MovieModel mmodel = new MovieModel();
 
     @FXML
     private TableView<Movie> tableViewMain;
+    @FXML
+    private TableColumn<Movie, String> colMovieTitle;
+    @FXML
+    private TableColumn<Movie, String> colCategory;
+    @FXML
+    private TableColumn<Movie, String> colRating;
+    @FXML
+    private ComboBox<?> comboboxFilterCategory;
+    @FXML
+    private TextField textfieldSearch;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        colMovieTitle.setCellValueFactory(new PropertyValueFactory("title"));
+        colCategory.setCellValueFactory(new PropertyValueFactory("category"));
+        colRating.setCellValueFactory(new PropertyValueFactory("rating"));
+        tableViewMain.setItems(mmodel.getMovies());
     }
     
     @FXML
-    private void editCategories(ActionEvent event) throws IOException {
+    private void editCategoriesWindow(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/movieplayer/gui/view/CategoryWindow.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) new Stage();
@@ -48,7 +62,7 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void addMovie(ActionEvent event) throws IOException {
+    private void addMovieWindow(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/movieplayer/gui/view/MovieWindow.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) new Stage();
@@ -56,8 +70,7 @@ public class MainWindowController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void editMovie(ActionEvent event) throws IOException {
+    private void editMovieWindow(ActionEvent event) throws IOException {
         Movie selectedMovie = tableViewMain.getSelectionModel().getSelectedItem();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/movieplayer/gui/view/MovieWindow.fxml"));
         MovieWindowController controller = fxmlLoader.getController();

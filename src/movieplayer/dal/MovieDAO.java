@@ -15,8 +15,7 @@ import movieplayer.be.Movie;
  * @author a
  */
 public class MovieDAO {
-    
-    /*
+     /*
     
     SQLServerDataSource ds;
     
@@ -36,20 +35,19 @@ public class MovieDAO {
         }
     }
     //testMov = new MovieDAO
-    // testMov.createMovie(textfieldinfo, 0, data/movieName, lastview)
-    //creates a movie with variables name, rating, categories, filelink and lastview
+    // testMov.createMovie(textfieldinfo, 0, data/movieName)
+    //creates a movie with variables name, rating, categories, filelink
     //All these methods must throw SQLException and SQLServerException, gui must catch it all, dont konw how it works exactly.
-    public Movie createMovie(String name, int rating, String filelink, String lastview) {
+    public Movie createMovie(String name, int rating, String filelink) {
         Movie m = null;
         try (Connection con = ds.getConnection()) {
-            String sql = "INSERT INTO Movie(name, rating, filelink, lastview) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO Movie(name, rating, filelink) VALUES(?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setInt(2, rating);
             stmt.setString(3, filelink);
-            stmt.setString(4, lastview);
             stmt.execute();
-            m = new Movie(name, rating, logicfacade.getEnteredCategories(), m.getFilelink(), getLastID());
+            m = new Movie(name, rating, categories, filelink, getLastID());
             return m;
         } catch (SQLServerException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,17 +80,16 @@ public class MovieDAO {
     }
     
     //Updating the movie, if the user wants to edit a movie that already exists in the database.
-    public Movie updateMovie(Movie movie, String name, int rating, String filelink, String lastview) {
+    public Movie updateMovie(Movie movie, String name, int rating, String filelink) {
         try (Connection con = ds.getConnection()) {
-            String query = "UPDATE Movie set name=?, rating=?, filelink=?, lastview=? WHERE id=?";
+            String query = "UPDATE Movie set name=?, rating=?, filelink=? WHERE id=?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, name);
             preparedStmt.setInt(2, rating);
             preparedStmt.setString(3, filelink);
-            preparedStmt.setString(4, lastview);
-            preparedStmt.setInt(5, movie.getID());
+            preparedStmt.setInt(4, movie.getID());
             preparedStmt.executeUpdate();
-            Movie m = new Movie(name, rating, logicfacade.getEnteredCategories(), m.getFilelink(), lastview, movie.getID());
+            Movie m = new Movie(name, rating, categories, m.getFilelink(), lastview, movie.getID());
             return m;
         }
         catch (SQLServerException ex) {
@@ -133,7 +130,7 @@ public class MovieDAO {
                 String filelink = rs.getString("filelink");
                 String lastview = rs.getString("lastview");
                 int id = rs.getInt("id");
-                Movie m = new Movie(name, rating, logicfacade.getCategories(), lastview, filelink, id);
+                Movie m = new Movie(name, rating, categories, lastview, filelink, id);
                 movies.add(m);
             }
         } catch (SQLServerException ex) {

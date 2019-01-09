@@ -17,7 +17,7 @@
             <HBox prefHeight="35.0" prefWidth="407.0" spacing="20.0">
                <children>
                   <Label prefHeight="25.0" prefWidth="73.0" text="Title: " />
-                  <TextField prefHeight="25.0" prefWidth="249.0" />
+                  <TextField fx:id="textfieldMovieName" prefHeight="25.0" prefWidth="249.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -35,7 +35,7 @@
             <HBox prefHeight="35.0" prefWidth="407.0" spacing="20.0">
                <children>
                   <Label prefHeight="25.0" prefWidth="73.0" text="Rating:" />
-                  <ComboBox prefHeight="31.0" prefWidth="97.0" promptText="0%" />
+                  <ComboBox fx:id="comboboxRating" prefHeight="31.0" prefWidth="97.0" promptText="0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -44,8 +44,8 @@
             <HBox prefHeight="35.0" prefWidth="407.0" spacing="20.0">
                <children>
                   <Label prefHeight="25.0" prefWidth="73.0" text="File:" />
-                  <TextField prefHeight="25.0" prefWidth="249.0" />
-                  <Button mnemonicParsing="false" text="Select File..." />
+                  <TextField fx:id="textfieldFileChosen" prefHeight="25.0" prefWidth="249.0" />
+                  <Button mnemonicParsing="false" onAction="#getFileLink" text="Select File..." />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -60,6 +60,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox layoutX="496.0" layoutY="142.0" prefHeight="31.0" prefWidth="154.0" promptText="Add Category" />
+      <ComboBox fx:id="comboboxAddCategory" layoutX="496.0" layoutY="142.0" prefHeight="31.0" prefWidth="154.0" promptText="Add Category" />
    </children>
 </AnchorPane>

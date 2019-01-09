@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package movieplayer.gui.controller;
 
 import java.io.IOException;
@@ -40,10 +35,11 @@ public class CategoryWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         listviewCategories.setItems(cmodel.getCategories());
+        cmodel.loadAllCategories();
     }
     
     @FXML
-    private void newCategory(ActionEvent event) throws IOException {
+    private void newCategoryWindow(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/movieplayer/gui/view/EditCategoriesWindow.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) new Stage();
@@ -59,6 +55,11 @@ public class CategoryWindowController implements Initializable {
     
     @FXML private void clickLoadList(ActionEvent event) {
         cmodel.loadAllCategories();
+    }
+    
+    @FXML private void deleteCategory(ActionEvent event) {
+        Category clickedCategory = listviewCategories.getSelectionModel().getSelectedItem();
+        cmodel.deleteCategory(clickedCategory);
     }
     
 }

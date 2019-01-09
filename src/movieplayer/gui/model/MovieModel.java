@@ -19,13 +19,13 @@ public class MovieModel {
     public ObservableList<Movie> getMovies() {
         return movies;
     }
-    
-    public Movie createMovie(String name, int rating, String filelink, String lastview) {
-        return facade.createMovie(name, rating, filelink, lastview);
+    /*
+    public Movie createMovie(String name, int rating, String filelink) {
+        return facade.createMovie(name, rating, filelink);
     }
     
-    public Movie updateMovie(Movie movie, String name, int rating, String filelink, String lastview) {
-        return facade.updateMovie(movie, name, rating, filelink, lastview);
+    public Movie updateMovie(Movie movie, String name, int rating, String filelink) {
+        return facade.updateMovie(movie, name, rating, filelink);
     }
     
     public List<Movie> getAllMovies() {
@@ -34,6 +34,6 @@ public class MovieModel {
     
     public void deleteMovie(Movie m) {
         facade.deleteMovie(m);
-    }
+    }*/
     
 }

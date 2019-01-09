@@ -1,10 +1,16 @@
 package movieplayer.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import movieplayer.be.Category;
+import movieplayer.be.Movie;
 
 /**
  *
@@ -14,7 +20,7 @@ public class CatMovDAO {
     
         SQLServerDataSource ds;
     
-        public CatMovDAO() throws IOException {
+    public CatMovDAO() throws IOException {
         this.ds = new SQLServerDataSource();
         DBConnect connectionInfo = new DBConnect(); 
         List<String> loginInfo; 
@@ -29,5 +35,20 @@ public class CatMovDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /*
+    public void addCategoriesToMovie(Movie movie, List<Category> categories) {
+        try (Connection con = ds.getConnection()) {
+            String sql = "SELECT * FROM CatMovie INNER JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CatMovie.CategoryId = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, c.getID());
+            stmt.execute();
+        } catch (SQLServerException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
+        
+        
     
 }
