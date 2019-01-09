@@ -15,7 +15,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import movieplayer.be.Category;
+import movieplayer.gui.model.CategoryModel;
 
 /**
  * FXML Controller class
@@ -23,16 +26,20 @@ import javafx.stage.Stage;
  * @author youPCbr0
  */
 public class CategoryWindowController implements Initializable {
+    
+    CategoryModel cmodel = new CategoryModel();
 
     @FXML
     private Label labelTitle;
+    @FXML
+    private ListView<Category> listviewCategories;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        listviewCategories.setItems(cmodel.getCategories());
     }
     
     @FXML
@@ -48,6 +55,10 @@ public class CategoryWindowController implements Initializable {
     private void close(ActionEvent event) {
         Stage stage = (Stage) labelTitle.getScene().getWindow();
         stage.close();
+    }
+    
+    @FXML private void clickLoadList(ActionEvent event) {
+        cmodel.loadAllCategories();
     }
     
 }

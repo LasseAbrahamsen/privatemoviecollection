@@ -12,11 +12,10 @@ import movieplayer.bll.Facade;
  */
 public class CategoryModel {
     
-    Facade facade = new Facade();
-    
     private ObservableList<Category> categories = FXCollections.observableArrayList();
+    Facade facade = new Facade();
 
-    public ObservableList<Category> getMovies() {
+    public ObservableList<Category> getCategories() {
         return categories;
     }
     
@@ -32,8 +31,10 @@ public class CategoryModel {
         facade.deleteCategory(c);
     }
     
-    public List<Category> getAllCategories() {
-        return facade.getAllCategories();
+    public void loadAllCategories()
+    {
+        categories.clear();
+        categories.addAll(facade.getAllCategories());
     }
     
 }
