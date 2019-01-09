@@ -17,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import movieplayer.be.Movie;
+import movieplayer.bll.Facade;
+
 
 /**
  * FXML Controller class

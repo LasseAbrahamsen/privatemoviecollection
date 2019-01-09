@@ -46,7 +46,7 @@ public class MovieDAO {
             stmt.setString(3, filelink);
             stmt.setString(4, lastview);
             stmt.execute();
-            m = new Movie(name, rating, logicfacade.getEnteredCategories(), m.getFilelink(), m.getID());
+            m = new Movie(name, rating, logicfacade.getEnteredCategories(), m.getFilelink(), getLastID());
             return m;
         } catch (SQLServerException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,7 +56,7 @@ public class MovieDAO {
         return m;
     }
     
-    //The method is for song creation. It gives us the last ID in the song list.
+    //The method is for movie creation. It gives us the last ID in the movie list.
     public int getLastID() {
         int lastID = -1;
         try (Connection con = ds.getConnection()){
@@ -107,7 +107,7 @@ public class MovieDAO {
         try (Connection con = ds.getConnection()) {
             String sql = "DELETE FROM Movie WHERE id=?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, m.getId());
+            stmt.setInt(1, m.getID());
             stmt.execute();
         } catch (SQLServerException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
