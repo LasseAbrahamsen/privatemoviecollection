@@ -38,7 +38,7 @@ public class CategoryDAO {
         }
     }
     
-    public Category createCategory(String name, int ID) {
+    public Category createCategory(String name) {
         Category c = null;
         try (Connection con = ds.getConnection()) {
             String sql = "INSERT INTO Category(name) VALUES(?)";
@@ -76,7 +76,7 @@ public class CategoryDAO {
         }
     }
     
-    public Category updateCategory(Category category, String name, int ID) {
+    public Category updateCategory(Category category, String name) {
         try (Connection con = ds.getConnection()) {
             String query = "UPDATE Category set name=? WHERE id=?";
             PreparedStatement preparedStmt = con.prepareStatement(query);

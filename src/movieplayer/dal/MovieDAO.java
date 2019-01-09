@@ -16,6 +16,8 @@ import movieplayer.be.Movie;
  */
 public class MovieDAO {
     
+    /*
+    
     SQLServerDataSource ds;
     
     public MovieDAO() {
@@ -36,6 +38,7 @@ public class MovieDAO {
     //testMov = new MovieDAO
     // testMov.createMovie(textfieldinfo, 0, data/movieName, lastview)
     //creates a movie with variables name, rating, categories, filelink and lastview
+    //All these methods must throw SQLException and SQLServerException, gui must catch it all, dont konw how it works exactly.
     public Movie createMovie(String name, int rating, String filelink, String lastview) {
         Movie m = null;
         try (Connection con = ds.getConnection()) {
@@ -140,5 +143,6 @@ public class MovieDAO {
         }
         return movies;
     }
+*/
     
 }

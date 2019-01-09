@@ -7,7 +7,12 @@ package movieplayer.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+import movieplayer.be.Category;
+import movieplayer.gui.model.CategoryModel;
 
 /**
  * FXML Controller class
@@ -15,6 +20,10 @@ import javafx.fxml.Initializable;
  * @author youPCbr0
  */
 public class EditCategoriesWindowController implements Initializable {
+    
+    @FXML private TextField textfieldCategory;
+    
+    CategoryModel cmodel = new CategoryModel();
 
     /**
      * Initializes the controller class.
@@ -22,6 +31,13 @@ public class EditCategoriesWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
+    @FXML
+    private void saveCategory(ActionEvent event) {
+        cmodel.createCategory(textfieldCategory.getText());
+    }
+
+    
     
 }

@@ -31,12 +31,12 @@ public class Facade {
         mdao.deleteMovie(m);
     }
     
-    public Category createCategory(String name, int ID) {
-        return cdao.createCategory(name, ID);
+    public Category createCategory(String name) {
+        return cdao.createCategory(name);
     }
     
-    public Category updateCategory(Category category, String name, int ID) {
-        return cdao.updateCategory(category, name, ID);
+    public Category updateCategory(Category category, String name) {
+        return cdao.updateCategory(category, name);
     }
     
     public void deleteCategory(Category c) {
