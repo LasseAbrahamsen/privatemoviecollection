@@ -16,6 +16,8 @@ public class CategoryModel {
     Facade facade = new Facade();
 
     public ObservableList<Category> getCategories() {
+        categories.clear();
+        categories.addAll(facade.getAllCategories());
         return categories;
     }
     
@@ -29,12 +31,6 @@ public class CategoryModel {
     
     public void deleteCategory(Category c) {
         facade.deleteCategory(c);
-    }
-    
-    public void loadAllCategories()
-    {
-        categories.clear();
-        categories.addAll(facade.getAllCategories());
     }
     
 }

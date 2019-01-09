@@ -33,7 +33,7 @@ public class CategoryWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         listviewCategories.setItems(cmodel.getCategories());
-        cmodel.loadAllCategories();
+        cmodel.getCategories();
     }
     
     @FXML
@@ -49,10 +49,6 @@ public class CategoryWindowController implements Initializable {
     private void close(ActionEvent event) {
         Stage stage = (Stage) labelTitle.getScene().getWindow();
         stage.close();
-    }
-    
-    @FXML private void clickLoadList(ActionEvent event) {
-        cmodel.loadAllCategories();
     }
     
     @FXML private void deleteCategory(ActionEvent event) {

@@ -61,5 +61,6 @@
          </font>
       </Label>
       <ComboBox fx:id="comboboxAddCategory" layoutX="496.0" layoutY="142.0" prefHeight="31.0" prefWidth="154.0" promptText="Add Category" />
+      <Button layoutX="512.0" layoutY="102.0" mnemonicParsing="false" onAction="#addCategoryToLabel" text="Add category to Movie" />
    </children>
 </AnchorPane>

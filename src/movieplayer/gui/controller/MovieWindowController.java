@@ -3,6 +3,7 @@ package movieplayer.gui.controller;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,13 +34,17 @@ public class MovieWindowController implements Initializable {
     
     MovieModel mmodel = new MovieModel();
     CategoryModel cmodel = new CategoryModel();
+    private ObservableList<Category> observableListCategory;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        observableListCategory = cmodel.getCategories();
+        
         comboboxRating.getItems().addAll(0,1,2,3,4,5);
+        comboboxAddCategory.getItems().addAll(observableListCategory);
     }
 
     
@@ -69,6 +74,13 @@ public class MovieWindowController implements Initializable {
     
     void setEditingMode(Movie selectedMovie) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void addCategoryToLabel(ActionEvent event) {
+        Category selectedCategory = comboboxAddCategory.getSelectionModel().getSelectedItem();
+        if (selectedCategory != null) {
+            labelCategories.setText(selectedCategory.toString());
+        }
     }
     
 }
