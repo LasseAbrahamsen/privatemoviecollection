@@ -1,5 +1,6 @@
 package movieplayer.gui.model;
 
+import java.sql.SQLException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +22,7 @@ public class CategoryModel {
         return categories;
     }
     
-    public Category createCategory(String name) {
+    public Category createCategory(String name) throws SQLException {
         return facade.createCategory(name);
     }
     
@@ -29,8 +30,9 @@ public class CategoryModel {
         return facade.updateCategory(category, name);
     }
     
-    public void deleteCategory(Category c) {
+    public void deleteCategory(Category c) throws SQLException {
         facade.deleteCategory(c);
     }
+
     
 }

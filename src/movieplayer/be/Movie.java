@@ -1,17 +1,19 @@
 package movieplayer.be;
 
+import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class Movie {
     
     private String name;
-    private List<String> categories;
+    private ArrayList<Category> categories;
     private double rating;
     private String filelink;
     private final int ID; //it's final because in the database it's a unique constant
-    private String lastview;
+    private Date lastview;
     
-    public Movie(String name, int rating, List<String> categories, String filelink, String lastview, int ID)
+    public Movie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, int ID)
     {
         this.name = name;
         this.rating = rating;
@@ -29,11 +31,11 @@ public class Movie {
         this.name = name;
     }
     
-    public void addCategory(String category) {
+    public void addCategory(Category category) {
         categories.add(category);
     }
     
-    public void removeCategory(String category) {
+    public void removeCategory(Category category) {
         categories.remove(category);
     }
 
@@ -57,19 +59,19 @@ public class Movie {
         return ID;
     }
 
-    public List<String> getCategories() {
+    public ArrayList<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
     }
 
-    public String getLastview() {
+    public Date getLastview() {
         return lastview;
     }
 
-    public void setLastview(String lastview) {
+    public void setLastview(Date lastview) {
         this.lastview = lastview;
     }
     

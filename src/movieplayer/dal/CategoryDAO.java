@@ -38,7 +38,7 @@ public class CategoryDAO {
         }
     }
     
-    public Category createCategory(String name) {
+    public Category createCategory(String name) throws SQLException {
         Category c = null;
         try (Connection con = ds.getConnection()) {
             String sql = "INSERT INTO Category(name) VALUES(?)";
@@ -47,18 +47,16 @@ public class CategoryDAO {
             stmt.execute();
             c = new Category(name, getLastID());
             return c;
-        } catch (SQLServerException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
-        return c;
     }
     
     public int getLastID() {
         int lastID = -1;
         try (Connection con = ds.getConnection()){
-            String sql = "SELECT TOP(1) * FROM Category ORDER by id desc";
+            String sql = "SELECT TOP(1) * FROM Category ORDER BY id DESC";
             PreparedStatement preparedStmt = con.prepareStatement(sql);
             ResultSet rs = preparedStmt.executeQuery();
             while(rs.next()) {
@@ -96,16 +94,15 @@ public class CategoryDAO {
         }
     }
 
-    public void deleteCategory(Category c) {
+    public void deleteCategory(Category c) throws SQLException {
         try (Connection con = ds.getConnection()) {
             String sql = "DELETE FROM Category WHERE id=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, c.getID());
             stmt.execute();
-        } catch (SQLServerException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
     }
     

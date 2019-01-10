@@ -6,13 +6,17 @@
 package movieplayer.gui.controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import movieplayer.be.Category;
 import movieplayer.gui.model.CategoryModel;
+import movieplayer.gui.util.MessageBoxHelper;
 
 /**
  * FXML Controller class
@@ -35,9 +39,27 @@ public class EditCategoriesWindowController implements Initializable {
     
     @FXML
     private void saveCategory(ActionEvent event) {
-        cmodel.createCategory(textfieldCategory.getText());
+        try {
+            String catName = textfieldCategory.getText();
+            if (catName.length() < 128) {
+                cmodel.createCategory(textfieldCategory.getText());
+                close();
+            } else {
+                MessageBoxHelper.displayError("The name of the category must be less than 128 characters.");
+            }
+        } catch(SQLException ex) {
+            MessageBoxHelper.displayException(ex);
+        }
+    }
+    
+    @FXML
+    private void close(ActionEvent event) {
+        close();
     }
 
-    
+    private void close() {
+        Stage stage = (Stage) textfieldCategory.getScene().getWindow();
+        stage.close();
+    }
     
 }

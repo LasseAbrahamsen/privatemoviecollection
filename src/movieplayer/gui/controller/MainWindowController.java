@@ -3,6 +3,7 @@ package movieplayer.gui.controller;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import movieplayer.be.Category;
 import movieplayer.be.Movie;
 import movieplayer.gui.model.CategoryModel;
 import movieplayer.gui.model.MovieModel;
+import movieplayer.gui.util.MessageBoxHelper;
 
 
 /**
@@ -47,16 +49,24 @@ public class MainWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        observableListMovie = mmodel.getMovies();
         observableListCategory = cmodel.getCategories();
         
         colMovieTitle.setCellValueFactory(new PropertyValueFactory("name"));
-        colCategory.setCellValueFactory(new PropertyValueFactory("category"));
+        colCategory.setCellValueFactory(new PropertyValueFactory("categories"));
         colRating.setCellValueFactory(new PropertyValueFactory("rating"));
         
-        tableViewMain.setItems(mmodel.getMovies());
+        reload();
         
         comboboxFilterCategory.getItems().addAll(observableListCategory);
+    }
+    
+    private void reload() {
+        try {
+            tableViewMain.setItems(mmodel.getMovies());
+        } catch (SQLException ex) {
+            MessageBoxHelper.displayException(ex);
+        }
+        
     }
     
     @FXML
@@ -74,7 +84,9 @@ public class MainWindowController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
+        
+        reload();
     }
 
     private void editMovieWindow(ActionEvent event) throws IOException {
@@ -85,7 +97,9 @@ public class MainWindowController implements Initializable {
         Parent root = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.show();
+        stage.showAndWait();
+        
+        reload();
     }
     
     @FXML private void deleteMovie(ActionEvent event) {

@@ -5,9 +5,11 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
+import movieplayer.be.Category;
 import movieplayer.be.Movie;
 
 /**
@@ -15,9 +17,9 @@ import movieplayer.be.Movie;
  * @author a
  */
 public class MovieDAO {
-     /*
     
     SQLServerDataSource ds;
+    CatMovDAO cmDAO = new CatMovDAO();
     
     public MovieDAO() {
         this.ds = new SQLServerDataSource();
@@ -38,23 +40,23 @@ public class MovieDAO {
     // testMov.createMovie(textfieldinfo, 0, data/movieName)
     //creates a movie with variables name, rating, categories, filelink
     //All these methods must throw SQLException and SQLServerException, gui must catch it all, dont konw how it works exactly.
-    public Movie createMovie(String name, int rating, String filelink) {
+    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview) throws SQLException {
         Movie m = null;
         try (Connection con = ds.getConnection()) {
-            String sql = "INSERT INTO Movie(name, rating, filelink) VALUES(?,?,?)";
+            String sql = "INSERT INTO Movie(name, rating, filelink, lastview) VALUES(?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setInt(2, rating);
             stmt.setString(3, filelink);
+            stmt.setDate(4, lastview);
             stmt.execute();
-            m = new Movie(name, rating, categories, filelink, getLastID());
+            m = new Movie(name, rating, categories, filelink, lastview, getLastID());
+            cmDAO.setCategoriesToMovie(m, categories);
             return m;
-        } catch (SQLServerException ex) {
-            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
-        return m;
     }
     
     //The method is for movie creation. It gives us the last ID in the movie list.
@@ -79,6 +81,7 @@ public class MovieDAO {
         }
     }
     
+    /*
     //Updating the movie, if the user wants to edit a movie that already exists in the database.
     public Movie updateMovie(Movie movie, String name, int rating, String filelink) {
         try (Connection con = ds.getConnection()) {
@@ -89,7 +92,7 @@ public class MovieDAO {
             preparedStmt.setString(3, filelink);
             preparedStmt.setInt(4, movie.getID());
             preparedStmt.executeUpdate();
-            Movie m = new Movie(name, rating, categories, m.getFilelink(), lastview, movie.getID());
+            Movie m = new Movie(name, rating, categories, filelink, lastview, movie.getID());
             return m;
         }
         catch (SQLServerException ex) {
@@ -102,7 +105,7 @@ public class MovieDAO {
         }
     }
     
-    //Deletes a song from the database.
+    //Deletes a movie from the database.
     public void deleteMovie(Movie m) {
         try (Connection con = ds.getConnection()) {
             String sql = "DELETE FROM Movie WHERE id=?";
@@ -115,31 +118,51 @@ public class MovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    */
     
-    //returns a list of all the songs, used for the song list.
-    public List<Movie> getAllMovies() {
-        List<Movie> movies = new ArrayList();
+    //returns a list of all movies.
+    /*
+    We generate a local hashmap outside of the database. In the first iteration of the while(rs.next())
+    it jumps right into the else { clause, because it checks the ID of the hashmap which doesn't contain anything.
+    In the else clause it creates a movie and associates it with its id inside the local hashmap.
+    In the following iterations of the while(rs.next()), if we encounter the same movie again (identified by
+    the id that is now inside the moviesById local hashmap) we jump inside the if clause and just add
+    categories to the single movie element.
+    
+    The whole point is to avoid duplicating movies in the list that we return.
+    */
+    
+    public ArrayList<Movie> getAllMovies() throws SQLException {
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        HashMap<Integer, Movie> moviesById = new HashMap<Integer, Movie>();
         try (Connection con = ds.getConnection()) {
-            String sqlStatement = "SELECT * FROM Movie";
+            String sqlStatement = "SELECT Movie.id, Movie.name, Movie.rating, Movie.filelink, Movie.lastview, Category.name AS categoryName, Category.id AS categoryId FROM Movie LEFT JOIN CatMovie ON CatMovie.MovieId = Movie.id JOIN Category ON Category.id = CatMovie.CategoryId";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while(rs.next()) {
                 String name = rs.getString("name");
                 int rating = rs.getInt("rating");
-                String categories = rs.getString("categories");
                 String filelink = rs.getString("filelink");
                 String lastview = rs.getString("lastview");
                 int id = rs.getInt("id");
-                Movie m = new Movie(name, rating, categories, lastview, filelink, id);
-                movies.add(m);
+                if(moviesById.containsKey(id)) {
+                    Movie m = moviesById.get(id);
+                    m.addCategory(new Category(rs.getString("categoryName"), rs.getInt("categoryId")));
+                } else {
+                    ArrayList<Category> cats = new ArrayList<Category>();
+                    String catName = rs.getString("categoryName");
+                    if(catName != null) {
+                        cats.add(new Category(rs.getString("categoryName"), rs.getInt("categoryId")));
+                    }
+                    Movie m = new Movie(name, rating, cats, filelink, Date.valueOf(lastview), id);
+                    movies.add(m);
+                    moviesById.put(id, m);
+                }
             }
-        } catch (SQLServerException ex) {
-            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return movies;
         } catch (SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
-        return movies;
     }
-*/
-    
 }

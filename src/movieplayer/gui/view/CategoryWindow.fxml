@@ -10,7 +10,7 @@
       <ListView fx:id="listviewCategories" layoutX="16.0" layoutY="48.0" prefHeight="386.0" prefWidth="326.0" />
       <Label fx:id="labelTitle" layoutX="76.0" layoutY="23.0" text="Here's a list of your current categories:" />
       <Button layoutX="245.0" layoutY="448.0" mnemonicParsing="false" onAction="#newCategoryWindow" text="Add Category" />
-      <Button layoutX="9.0" layoutY="448.0" mnemonicParsing="false" text="Delete Selected Category" />
+      <Button layoutX="9.0" layoutY="448.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete Selected Category" />
       <Button layoutX="7.0" layoutY="503.0" mnemonicParsing="false" onAction="#close" text="Cancel" />
    </children>
 </AnchorPane>

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ public class CatMovDAO {
     
         SQLServerDataSource ds;
     
-    public CatMovDAO() throws IOException {
+    public CatMovDAO() {
         this.ds = new SQLServerDataSource();
         DBConnect connectionInfo = new DBConnect(); 
         List<String> loginInfo; 
@@ -35,19 +36,25 @@ public class CatMovDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /*
-    public void addCategoriesToMovie(Movie movie, List<Category> categories) {
+    
+    public void setCategoriesToMovie(Movie movie, ArrayList<Category> categories) {
         try (Connection con = ds.getConnection()) {
-            String sql = "SELECT * FROM CatMovie INNER JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CatMovie.CategoryId = ?";
+            String sql = "INSERT INTO CatMovie(MovieId, CategoryId) VALUES(?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, c.getID());
-            stmt.execute();
+            for (Category category: categories) {
+                stmt.setInt(1, movie.getID());
+                stmt.setInt(2, category.getID());
+                stmt.execute(); 
+            }
         } catch (SQLServerException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
+    
+    
+    //SELECT * FROM CatMovie INNER JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CatMovie.CategoryId = ?
         
         
     
