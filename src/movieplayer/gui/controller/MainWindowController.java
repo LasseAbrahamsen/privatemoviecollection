@@ -102,9 +102,22 @@ public class MainWindowController implements Initializable {
         reload();
     }
     
-    @FXML private void deleteMovie(ActionEvent event) {
-        Movie clickedMovie = tableViewMain.getSelectionModel().getSelectedItem();
-        //mmodel.deleteMovie(clickedMovie);
+    @FXML 
+    private void deleteMovie(ActionEvent event) {
+        try {
+            Movie clickedMovie = tableViewMain.getSelectionModel().getSelectedItem();
+            if(clickedMovie != null) {
+                if(!MessageBoxHelper.askYesNo("Are you sure you want to delete the movie " + clickedMovie.getName() + "?")) {
+                    return;
+                }
+                mmodel.deleteMovie(clickedMovie);
+                reload();
+            } else {
+                MessageBoxHelper.displayError("You must select a movie.");
+            } 
+        } catch(SQLException ex) {
+            MessageBoxHelper.displayException(ex);
+        }
     }
     
     @FXML private void search (KeyEvent event) {

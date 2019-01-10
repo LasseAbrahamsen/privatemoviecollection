@@ -1,5 +1,6 @@
 package movieplayer.gui.model;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,19 +29,18 @@ public class MovieModel {
     public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview) throws SQLException {
         return facade.createMovie(name, rating, categories, filelink, lastview);
     } 
-    /*
     
-    public Movie updateMovie(Movie movie, String name, int rating, String filelink) {
-        return facade.updateMovie(movie, name, rating, filelink);
+    public Movie updateMovie(Movie movie, String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview) throws SQLException {
+        return facade.updateMovie(movie, name, rating, categories, filelink, lastview);
     }
+    /*
     
     public ArrayList<Movie> getAllMovies() throws SQLException {
         return facade.getAllMovies();
-    }
+    }*/
     
-    public void deleteMovie(Movie m) {
+    public void deleteMovie(Movie m) throws SQLException{
         facade.deleteMovie(m);
     }
-*/
     
 }

@@ -54,7 +54,7 @@ public class MovieWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         observableListCategory = cmodel.getCategories();
         
-        selectedCategories = new ArrayList<Category>();
+        selectedCategories = new ArrayList<>();
         
         comboboxRating.getItems().addAll(0,1,2,3,4,5,6,7,8,9,10);
         comboboxAddCategory.getItems().addAll(observableListCategory);
@@ -90,7 +90,8 @@ public class MovieWindowController implements Initializable {
                 mmodel.createMovie(movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()),
                         selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue()); 
             } else {
-                //mmodel.updateMovie(movieName, movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()), textfieldFileChosen.getText());
+                //mmodel.updateMovie(movie, movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()), 
+                       // selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue());
             }
             close();
         } catch (SQLException ex) {

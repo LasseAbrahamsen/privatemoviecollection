@@ -53,6 +53,28 @@ public class CatMovDAO {
         }
     }
     
+    public void updateCategoriesOfMovie(Movie movie, ArrayList<Category> categories) {
+        try (Connection con = ds.getConnection()) {
+            String sqlDel = "DELETE FROM CatMovie WHERE MovieId=?";
+            PreparedStatement stmtDel = con.prepareStatement(sqlDel);
+            for (Category category: categories) {
+                stmtDel.setInt(1, movie.getID());
+                stmtDel.execute(); 
+            }
+            String sqlIns = "INSERT INTO CatMovie(MovieId, CategoryId) VALUES(?,?)";
+            PreparedStatement stmtIns = con.prepareStatement(sqlIns);
+            for (Category category: categories) {
+                stmtIns.setInt(1, movie.getID());
+                stmtIns.setInt(2, category.getID());
+                stmtIns.execute(); 
+            }
+        } catch (SQLServerException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     //SELECT * FROM CatMovie INNER JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CatMovie.CategoryId = ?
         

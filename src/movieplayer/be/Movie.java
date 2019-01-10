@@ -12,6 +12,7 @@ public class Movie {
     private String filelink;
     private final int ID; //it's final because in the database it's a unique constant
     private Date lastview;
+    //TODO: add IMDB rating
     
     public Movie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, int ID)
     {
