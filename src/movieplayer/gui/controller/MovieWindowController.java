@@ -153,11 +153,11 @@ public class MovieWindowController implements Initializable {
                 return imdbRating;
                 } else {
                     MessageBoxHelper.displayError("Number must be between 0-10.");
-                    return 0.0;
+                    return Double.parseDouble("False");
                 }
             } catch (NumberFormatException ex) {
                 MessageBoxHelper.displayError("The IMDB Rating has to be a valid number.");
-                return 0.0;
+                return Double.parseDouble("False");
             }
         }
     
