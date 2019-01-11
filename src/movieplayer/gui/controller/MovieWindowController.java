@@ -32,12 +32,14 @@ public class MovieWindowController implements Initializable {
 
     @FXML private TextField textfieldMovieName;
     @FXML private TextField textfieldFileChosen;
+    @FXML private TextField textfieldImdbRating;
     @FXML private Label labelCategories;
     @FXML private ComboBox<Integer> comboboxRating;
     @FXML private ComboBox<Category> comboboxAddCategory;
     @FXML private DatePicker datePickerLastSeen;
     
     private ArrayList<Category> selectedCategories;
+    private double imdbRating;
     
     private boolean isEditing = false;
     private Movie movie;
@@ -88,10 +90,10 @@ public class MovieWindowController implements Initializable {
             }
             if (!isEditing) {
                 mmodel.createMovie(movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()),
-                        selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue()); 
+                        selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue(), addImdbRating()); 
             } else {
                 //mmodel.updateMovie(movie, movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()), 
-                       // selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue());
+                       // selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue(), imdbRating);
             }
             close();
         } catch (SQLException ex) {
@@ -126,6 +128,21 @@ public class MovieWindowController implements Initializable {
             MessageBoxHelper.displayError("Category has already been added");
         } 
     }
+    
+    public Double addImdbRating() {
+        try {
+            imdbRating = Double.parseDouble(textfieldImdbRating.getText());
+            if (imdbRating <= 10 && imdbRating >= 0) {
+                return imdbRating;
+                } else {
+                    MessageBoxHelper.displayError("Number must be between 0-10.");
+                    return 0.0;
+                }
+            } catch (NumberFormatException ex) {
+                MessageBoxHelper.displayException(ex);
+                return 0.0;
+            }
+        }
     
     @FXML
     private void close(ActionEvent event) {

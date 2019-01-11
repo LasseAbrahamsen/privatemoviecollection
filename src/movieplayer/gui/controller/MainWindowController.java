@@ -36,6 +36,7 @@ public class MainWindowController implements Initializable {
     @FXML private TableColumn<Movie, String> colMovieTitle;
     @FXML private TableColumn<Movie, String> colCategory;
     @FXML private TableColumn<Movie, String> colRating;
+    @FXML private TableColumn<Movie, String> colImdb;
     @FXML private ComboBox<Category> comboboxFilterCategory;
     @FXML private TextField textfieldSearch;
     
@@ -54,6 +55,7 @@ public class MainWindowController implements Initializable {
         colMovieTitle.setCellValueFactory(new PropertyValueFactory("name"));
         colCategory.setCellValueFactory(new PropertyValueFactory("categories"));
         colRating.setCellValueFactory(new PropertyValueFactory("rating"));
+        colImdb.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         
         reload();
         
@@ -120,9 +122,6 @@ public class MainWindowController implements Initializable {
         }
     }
     
-    @FXML private void search (KeyEvent event) {
-        //TODO
-    }
     
     
     

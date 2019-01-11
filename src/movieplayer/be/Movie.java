@@ -12,9 +12,9 @@ public class Movie {
     private String filelink;
     private final int ID; //it's final because in the database it's a unique constant
     private Date lastview;
-    //TODO: add IMDB rating
+    private double imdbRating;
     
-    public Movie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, int ID)
+    public Movie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, int ID, double imdbRating)
     {
         this.name = name;
         this.rating = rating;
@@ -22,6 +22,7 @@ public class Movie {
         this.filelink = filelink;
         this.lastview = lastview;
         this.ID = ID;
+        this.imdbRating = imdbRating;
     }
 
     public String getName() {
@@ -75,6 +76,16 @@ public class Movie {
     public void setLastview(Date lastview) {
         this.lastview = lastview;
     }
+
+    public double getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(double imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+    
+    
     
     
     

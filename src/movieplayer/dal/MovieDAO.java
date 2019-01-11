@@ -39,17 +39,18 @@ public class MovieDAO {
     //testMov = new MovieDAO
     // testMov.createMovie(textfieldinfo, 0, data/movieName)
     //creates a movie with variables name, rating, categories, filelink
-    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview) throws SQLException {
+    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, double imdbRating) throws SQLException {
         Movie m = null;
         try (Connection con = ds.getConnection()) {
-            String sql = "INSERT INTO Movie(name, rating, filelink, lastview) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO Movie(name, rating, filelink, lastview, imdbRating) VALUES(?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setInt(2, rating);
             stmt.setString(3, filelink);
             stmt.setDate(4, lastview);
+            stmt.setDouble(5, imdbRating);
             stmt.execute();
-            m = new Movie(name, rating, categories, filelink, lastview, getLastID());
+            m = new Movie(name, rating, categories, filelink, lastview, getLastID(), imdbRating);
             cmDAO.setCategoriesToMovie(m, categories);
             return m;
         } catch (SQLException ex) {
@@ -81,17 +82,18 @@ public class MovieDAO {
     }
     
     //Updating the movie, if the user wants to edit a movie that already exists in the database.
-    public Movie updateMovie(Movie movie, String name, int rating, ArrayList<Category> categories, String filelink, Date lastview) throws SQLException {
+    public Movie updateMovie(Movie movie, String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, double imdbRating) throws SQLException {
         try (Connection con = ds.getConnection()) {
-            String query = "UPDATE Movie set name=?, rating=?, filelink=?, lastview=? WHERE id=?";
+            String query = "UPDATE Movie set name=?, rating=?, filelink=?, lastview=?, imdbRating=? WHERE id=?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, name);
             preparedStmt.setInt(2, rating);
             preparedStmt.setString(3, filelink);
             preparedStmt.setDate(4, lastview);
             preparedStmt.setInt(5, movie.getID());
+            preparedStmt.setDouble(6, imdbRating);
             preparedStmt.executeUpdate();
-            Movie m = new Movie(name, rating, categories, filelink, lastview, movie.getID());
+            Movie m = new Movie(name, rating, categories, filelink, lastview, movie.getID(), imdbRating);
             cmDAO.updateCategoriesOfMovie(m, categories);
             return m;
         }
@@ -130,7 +132,7 @@ public class MovieDAO {
         ArrayList<Movie> movies = new ArrayList<>();
         HashMap<Integer, Movie> moviesById = new HashMap<>();
         try (Connection con = ds.getConnection()) {
-            String sqlStatement = "SELECT Movie.id, Movie.name, Movie.rating, Movie.filelink, Movie.lastview, Category.name AS categoryName, Category.id AS categoryId FROM Movie LEFT JOIN CatMovie ON CatMovie.MovieId = Movie.id JOIN Category ON Category.id = CatMovie.CategoryId";
+            String sqlStatement = "SELECT Movie.id, Movie.name, Movie.rating, Movie.filelink, Movie.lastview, Movie.imdbRating, Category.name AS categoryName, Category.id AS categoryId FROM Movie LEFT JOIN CatMovie ON CatMovie.MovieId = Movie.id JOIN Category ON Category.id = CatMovie.CategoryId";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while(rs.next()) {
@@ -139,6 +141,7 @@ public class MovieDAO {
                 String filelink = rs.getString("filelink");
                 String lastview = rs.getString("lastview");
                 int id = rs.getInt("id");
+                double imdbRating = rs.getDouble("imdbRating");
                 if(moviesById.containsKey(id)) {
                     Movie m = moviesById.get(id);
                     m.addCategory(new Category(rs.getString("categoryName"), rs.getInt("categoryId")));
@@ -148,7 +151,7 @@ public class MovieDAO {
                     if(catName != null) {
                         cats.add(new Category(rs.getString("categoryName"), rs.getInt("categoryId")));
                     }
-                    Movie m = new Movie(name, rating, cats, filelink, Date.valueOf(lastview), id);
+                    Movie m = new Movie(name, rating, cats, filelink, Date.valueOf(lastview), id, imdbRating);
                     movies.add(m);
                     moviesById.put(id, m);
                 }

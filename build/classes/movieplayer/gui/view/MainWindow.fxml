@@ -29,6 +29,7 @@
           <TableColumn fx:id="colMovieTitle" prefWidth="384.0" text="Movie Title" />
           <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="115.0" text="Category" />
             <TableColumn fx:id="colRating" minWidth="0.0" prefWidth="78.0" text="Rating" />
+            <TableColumn fx:id="colImdb" minWidth="0.0" prefWidth="78.0" text="IMDB" />
         </columns>
       </TableView>
       <Button layoutX="12.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteMovie" prefHeight="80.0" prefWidth="161.0" text="Remove Movie" />

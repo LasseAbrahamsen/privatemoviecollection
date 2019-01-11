@@ -19,12 +19,12 @@ public class Facade {
     MovieDAO mdao = new MovieDAO();
     CategoryDAO cdao = new CategoryDAO();
 
-    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview) throws SQLException {
-        return mdao.createMovie(name, rating, categories, filelink, Date.valueOf(lastview));
+    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview, double imdbRating) throws SQLException {
+        return mdao.createMovie(name, rating, categories, filelink, Date.valueOf(lastview), imdbRating);
     }
     
-    public Movie updateMovie(Movie movie, String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview) throws SQLException {
-        return mdao.updateMovie(movie, name, rating, categories, filelink, Date.valueOf(lastview));
+    public Movie updateMovie(Movie movie, String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview, double imdbRating) throws SQLException {
+        return mdao.updateMovie(movie, name, rating, categories, filelink, Date.valueOf(lastview), imdbRating);
     }
 
     public ArrayList<Movie> getAllMovies() throws SQLException {

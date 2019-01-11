@@ -26,12 +26,12 @@ public class MovieModel {
         return movies;
     }
     
-    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview) throws SQLException {
-        return facade.createMovie(name, rating, categories, filelink, lastview);
+    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview, double imdbRating) throws SQLException {
+        return facade.createMovie(name, rating, categories, filelink, lastview, imdbRating);
     } 
     
-    public Movie updateMovie(Movie movie, String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview) throws SQLException {
-        return facade.updateMovie(movie, name, rating, categories, filelink, lastview);
+    public Movie updateMovie(Movie movie, String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview, double imdbRating) throws SQLException {
+        return facade.updateMovie(movie, name, rating, categories, filelink, lastview, imdbRating);
     }
     /*
     

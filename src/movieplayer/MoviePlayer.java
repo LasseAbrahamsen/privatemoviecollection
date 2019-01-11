@@ -13,6 +13,8 @@ public class MoviePlayer extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/movieplayer/gui/view/MainWindow.fxml"));
         Scene scene = new Scene(root);
+        /*String css = MoviePlayer.class.getResource("style.css").toExternalForm();
+        scene.getStylesheets().add(css);*/
         stage.setScene(scene);
         stage.show();
     }
