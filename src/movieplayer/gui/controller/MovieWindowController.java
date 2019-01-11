@@ -3,6 +3,7 @@ package movieplayer.gui.controller;
 import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
+import movieplayer.exceptions.CreateMovieException;
 import movieplayer.gui.model.CategoryModel;
 import movieplayer.gui.model.MovieModel;
 import movieplayer.gui.util.MessageBoxHelper;
@@ -92,17 +94,28 @@ public class MovieWindowController implements Initializable {
                 mmodel.createMovie(movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()),
                         selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue(), addImdbRating()); 
             } else {
-                //mmodel.updateMovie(movie, movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()), 
-                       // selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue(), imdbRating);
+                mmodel.updateMovie(movie, movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()), 
+                       selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue(), addImdbRating());
             }
             close();
         } catch (SQLException ex) {
             MessageBoxHelper.displayException(ex);
+        } catch (CreateMovieException ex) {
+            MessageBoxHelper.displayException(ex);
         }
     }
     
-    void setEditingMode(Movie selectedMovie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setEditingMode(Movie selectedMovie) {
+        isEditing = true;
+        movie = selectedMovie;
+        textfieldMovieName.setText(selectedMovie.getName());
+        comboboxRating.setValue(selectedMovie.getRating());
+        datePickerLastSeen.setValue(selectedMovie.getLastview().toLocalDate());
+        textfieldImdbRating.setText("" + selectedMovie.getImdbRating());
+        textfieldFileChosen.setText(selectedMovie.getFilelink());
+        selectedCategories = new ArrayList<Category>();
+        selectedCategories.addAll(selectedMovie.getCategories());
+        updateCategoryLabel();
     }
     
     @FXML
@@ -116,17 +129,21 @@ public class MovieWindowController implements Initializable {
         Category selectedCategory = comboboxAddCategory.getSelectionModel().getSelectedItem();
         if (!selectedCategories.contains(selectedCategory)) {
             selectedCategories.add(selectedCategory);
-            String text = "";
-            for (Category category : selectedCategories) {
-                text += category.getName();
-                if(category != selectedCategories.get(selectedCategories.size() - 1)) { // - 1 because .get uses zero-based index of the list
-                    text += ", ";
-                }
-            }
-            labelCategories.setText(text);
+            updateCategoryLabel();
         } else {
             MessageBoxHelper.displayError("Category has already been added");
         } 
+    }
+    
+    private void updateCategoryLabel() {
+        String text = "";
+        for (Category category : selectedCategories) {
+            text += category.getName();
+            if(category != selectedCategories.get(selectedCategories.size() - 1)) { // - 1 because .get uses zero-based index of the list
+                text += ", ";
+            }
+        }
+        labelCategories.setText(text);
     }
     
     public Double addImdbRating() {
@@ -139,7 +156,7 @@ public class MovieWindowController implements Initializable {
                     return 0.0;
                 }
             } catch (NumberFormatException ex) {
-                MessageBoxHelper.displayException(ex);
+                MessageBoxHelper.displayError("The IMDB Rating has to be a valid number.");
                 return 0.0;
             }
         }

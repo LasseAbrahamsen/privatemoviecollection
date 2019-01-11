@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import movieplayer.be.Category;
 import movieplayer.bll.Facade;
+import movieplayer.exceptions.CreateCategoryException;
 
 /**
  *
@@ -22,7 +23,7 @@ public class CategoryModel {
         return categories;
     }
     
-    public Category createCategory(String name) throws SQLException {
+    public Category createCategory(String name) throws SQLException, CreateCategoryException {
         return facade.createCategory(name);
     }
     

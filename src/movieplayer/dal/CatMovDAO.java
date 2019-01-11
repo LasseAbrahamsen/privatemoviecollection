@@ -37,7 +37,7 @@ public class CatMovDAO {
         }
     }
     
-    public void setCategoriesToMovie(Movie movie, ArrayList<Category> categories) {
+    public void setCategoriesToMovie(Movie movie, ArrayList<Category> categories) throws SQLException {
         try (Connection con = ds.getConnection()) {
             String sql = "INSERT INTO CatMovie(MovieId, CategoryId) VALUES(?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -46,32 +46,28 @@ public class CatMovDAO {
                 stmt.setInt(2, category.getID());
                 stmt.execute(); 
             }
-        } catch (SQLServerException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
     }
     
-    public void updateCategoriesOfMovie(Movie movie, ArrayList<Category> categories) {
+    public void updateCategoriesOfMovie(Movie movie, ArrayList<Category> categories) throws SQLException {
         try (Connection con = ds.getConnection()) {
             String sqlDel = "DELETE FROM CatMovie WHERE MovieId=?";
             PreparedStatement stmtDel = con.prepareStatement(sqlDel);
-            for (Category category: categories) {
-                stmtDel.setInt(1, movie.getID());
-                stmtDel.execute(); 
-            }
+            stmtDel.setInt(1, movie.getID());
+            stmtDel.execute();
             String sqlIns = "INSERT INTO CatMovie(MovieId, CategoryId) VALUES(?,?)";
             PreparedStatement stmtIns = con.prepareStatement(sqlIns);
             for (Category category: categories) {
                 stmtIns.setInt(1, movie.getID());
                 stmtIns.setInt(2, category.getID());
-                stmtIns.execute(); 
+                stmtIns.execute();
             }
-        } catch (SQLServerException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
     }
     

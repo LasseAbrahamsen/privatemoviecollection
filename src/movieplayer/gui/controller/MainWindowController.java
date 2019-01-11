@@ -1,10 +1,21 @@
 package movieplayer.gui.controller;
 
+import com.sun.media.jfxmedia.logging.Logger;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,13 +24,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
+import movieplayer.dal.MovieDAO;
 import movieplayer.gui.model.CategoryModel;
 import movieplayer.gui.model.MovieModel;
 import movieplayer.gui.util.MessageBoxHelper;
@@ -37,8 +53,12 @@ public class MainWindowController implements Initializable {
     @FXML private TableColumn<Movie, String> colCategory;
     @FXML private TableColumn<Movie, String> colRating;
     @FXML private TableColumn<Movie, String> colImdb;
-    @FXML private ComboBox<Category> comboboxFilterCategory;
     @FXML private TextField textfieldSearch;
+    @FXML private TextField textfieldFilterImdb;
+    @FXML private Label labelCategoryFilter;
+    @FXML private ComboBox<Category> comboboxSelectCategoryFilter;
+    
+    private ArrayList<Category> selectedCategories;
     
     MovieModel mmodel = new MovieModel();
     CategoryModel cmodel = new CategoryModel();
@@ -50,6 +70,7 @@ public class MainWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        selectedCategories = new ArrayList<Category>();
         observableListCategory = cmodel.getCategories();
         
         colMovieTitle.setCellValueFactory(new PropertyValueFactory("name"));
@@ -57,18 +78,34 @@ public class MainWindowController implements Initializable {
         colRating.setCellValueFactory(new PropertyValueFactory("rating"));
         colImdb.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         
+        textfieldSearch.textProperty().addListener((Observable observable) -> {
+            reload();
+        });
+        textfieldFilterImdb.textProperty().addListener((Observable observable) -> {
+            reload();
+        });
+        
         reload();
         
-        comboboxFilterCategory.getItems().addAll(observableListCategory);
+        comboboxSelectCategoryFilter.getItems().addAll(observableListCategory);
     }
     
-    private void reload() {
+    public void reload() {
         try {
-            tableViewMain.setItems(mmodel.getMovies());
+            tableViewMain.setItems(mmodel.getMovies(textfieldSearch.getText(), getImdbRating(), selectedCategories));
         } catch (SQLException ex) {
             MessageBoxHelper.displayException(ex);
         }
         
+    }
+    
+    private double getImdbRating() {
+        try {
+            return Double.parseDouble(textfieldFilterImdb.getText());
+        }
+        catch(NumberFormatException ex) {
+            return 0.0;
+        }
     }
     
     @FXML
@@ -90,13 +127,14 @@ public class MainWindowController implements Initializable {
         
         reload();
     }
-
+    
+    @FXML
     private void editMovieWindow(ActionEvent event) throws IOException {
         Movie selectedMovie = tableViewMain.getSelectionModel().getSelectedItem();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/movieplayer/gui/view/MovieWindow.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
         MovieWindowController controller = fxmlLoader.getController();
         controller.setEditingMode(selectedMovie);
-        Parent root = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.showAndWait();
@@ -122,9 +160,56 @@ public class MainWindowController implements Initializable {
         }
     }
     
+    @FXML
+    public void resetFilter(ActionEvent event) {
+        selectedCategories.clear();
+        labelCategoryFilter.setText("-");
+        reload();
+    }
     
+    @FXML
+    public void addFilter(ActionEvent event) {
+        Category selectedCategory = comboboxSelectCategoryFilter.getSelectionModel().getSelectedItem();
+        if(selectedCategory == null) {
+            MessageBoxHelper.displayError("You have to select a category");
+            return;
+        }
+        if (!selectedCategories.contains(selectedCategory)) {
+            selectedCategories.add(selectedCategory);
+            updateCategoryLabel();
+            reload();
+        } else {
+            MessageBoxHelper.displayError("Category has already been added");
+        } 
+    }
     
+    private void updateCategoryLabel() {
+        String text = "";
+        for (Category category : selectedCategories) {
+            text += category.getName();
+            if(category != selectedCategories.get(selectedCategories.size() - 1)) { // - 1 because .get uses zero-based index of the list
+                text += ", ";
+            }
+        }
+        labelCategoryFilter.setText(text);
+    }
     
+    @FXML
+    private void close(ActionEvent event) {
+        Stage stage = (Stage) textfieldSearch.getScene().getWindow();
+        stage.close();
+    }
     
-    
+    @FXML
+    private void playMovie(ActionEvent event) {
+        try {
+            Movie clickedMovie = tableViewMain.getSelectionModel().getSelectedItem();
+            File file = new File(clickedMovie.getFilelink());
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            MessageBoxHelper.displayException(ex);
+        } catch (IllegalArgumentException ex) {
+            MessageBoxHelper.displayException(ex);
+        }
+    }
 }

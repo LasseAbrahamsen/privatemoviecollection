@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import movieplayer.be.Category;
+import movieplayer.exceptions.CreateCategoryException;
 
 /**
  *
@@ -38,7 +39,7 @@ public class CategoryDAO {
         }
     }
     
-    public Category createCategory(String name) throws SQLException {
+    public Category createCategory(String name) throws SQLException, CreateCategoryException {
         Category c = null;
         try (Connection con = ds.getConnection()) {
             String sql = "INSERT INTO Category(name) VALUES(?)";
@@ -47,6 +48,12 @@ public class CategoryDAO {
             stmt.execute();
             c = new Category(name, getLastID());
             return c;
+        } catch (SQLServerException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            if(ex.getErrorCode() == 2627) {
+                throw new CreateCategoryException("There is already a category with name " + name);
+            }
+            throw ex;
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;

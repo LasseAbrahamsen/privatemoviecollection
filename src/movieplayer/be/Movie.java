@@ -1,5 +1,6 @@
 package movieplayer.be;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ public class Movie {
     
     private String name;
     private ArrayList<Category> categories;
-    private double rating;
+    private int rating;
     private String filelink;
     private final int ID; //it's final because in the database it's a unique constant
     private Date lastview;
@@ -41,11 +42,11 @@ public class Movie {
         categories.remove(category);
     }
 
-    public double getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

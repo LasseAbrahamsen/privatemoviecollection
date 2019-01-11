@@ -9,6 +9,8 @@ import movieplayer.be.Category;
 import movieplayer.be.Movie;
 import movieplayer.dal.MovieDAO;
 import movieplayer.dal.CategoryDAO;
+import movieplayer.exceptions.CreateCategoryException;
+import movieplayer.exceptions.CreateMovieException;
 
 /**
  *
@@ -19,7 +21,7 @@ public class Facade {
     MovieDAO mdao = new MovieDAO();
     CategoryDAO cdao = new CategoryDAO();
 
-    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview, double imdbRating) throws SQLException {
+    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, LocalDate lastview, double imdbRating) throws SQLException, CreateMovieException {
         return mdao.createMovie(name, rating, categories, filelink, Date.valueOf(lastview), imdbRating);
     }
     
@@ -27,15 +29,23 @@ public class Facade {
         return mdao.updateMovie(movie, name, rating, categories, filelink, Date.valueOf(lastview), imdbRating);
     }
 
-    public ArrayList<Movie> getAllMovies() throws SQLException {
-        return mdao.getAllMovies();
+    public ArrayList<Movie> getAllMovies(String nameFilter, double minImdbRatingFilter, ArrayList<Category> categoryFilter) throws SQLException {
+        return mdao.getAllMovies(nameFilter, minImdbRatingFilter, categoryFilter);
     }
     
     public void deleteMovie(Movie m) throws SQLException {
         mdao.deleteMovie(m);
     }
     
-    public Category createCategory(String name) throws SQLException {
+    public ArrayList<String> getObsoleteMovies() throws SQLException {
+        return mdao.getObsoleteMovies();
+    }
+    
+    public void deleteObsoleteMovies() throws SQLException {
+        mdao.deleteObsoleteMovies();
+    }
+    
+    public Category createCategory(String name) throws SQLException, CreateCategoryException {
         return cdao.createCategory(name);
     }
     

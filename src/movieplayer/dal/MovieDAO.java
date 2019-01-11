@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import java.util.List;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
+import movieplayer.exceptions.CreateMovieException;
 
 /**
  *
@@ -39,7 +40,7 @@ public class MovieDAO {
     //testMov = new MovieDAO
     // testMov.createMovie(textfieldinfo, 0, data/movieName)
     //creates a movie with variables name, rating, categories, filelink
-    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, double imdbRating) throws SQLException {
+    public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, double imdbRating) throws SQLException, CreateMovieException {
         Movie m = null;
         try (Connection con = ds.getConnection()) {
             String sql = "INSERT INTO Movie(name, rating, filelink, lastview, imdbRating) VALUES(?,?,?,?,?)";
@@ -53,6 +54,12 @@ public class MovieDAO {
             m = new Movie(name, rating, categories, filelink, lastview, getLastID(), imdbRating);
             cmDAO.setCategoriesToMovie(m, categories);
             return m;
+        } catch (SQLServerException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            if(ex.getErrorCode() == 2627) {
+                throw new CreateMovieException("There is already a movie with name " + name);
+            }
+            throw ex;
         } catch (SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;
@@ -90,8 +97,8 @@ public class MovieDAO {
             preparedStmt.setInt(2, rating);
             preparedStmt.setString(3, filelink);
             preparedStmt.setDate(4, lastview);
-            preparedStmt.setInt(5, movie.getID());
-            preparedStmt.setDouble(6, imdbRating);
+            preparedStmt.setDouble(5, imdbRating);
+            preparedStmt.setInt(6, movie.getID());
             preparedStmt.executeUpdate();
             Movie m = new Movie(name, rating, categories, filelink, lastview, movie.getID(), imdbRating);
             cmDAO.updateCategoriesOfMovie(m, categories);
@@ -128,13 +135,22 @@ public class MovieDAO {
     The whole point is to avoid duplicating movies in the list that we return.
     */
     
-    public ArrayList<Movie> getAllMovies() throws SQLException {
+    public ArrayList<Movie> getAllMovies(String nameFilter, double minImdbRatingFilter, ArrayList<Category> categoryFilter) throws SQLException {
         ArrayList<Movie> movies = new ArrayList<>();
         HashMap<Integer, Movie> moviesById = new HashMap<>();
         try (Connection con = ds.getConnection()) {
-            String sqlStatement = "SELECT Movie.id, Movie.name, Movie.rating, Movie.filelink, Movie.lastview, Movie.imdbRating, Category.name AS categoryName, Category.id AS categoryId FROM Movie LEFT JOIN CatMovie ON CatMovie.MovieId = Movie.id JOIN Category ON Category.id = CatMovie.CategoryId";
-            Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery(sqlStatement);
+            String sqlStatement = "SELECT Movie.id, Movie.name, Movie.rating, Movie.filelink, Movie.lastview, Movie.imdbRating, Category.name AS categoryName, Category.id AS categoryId FROM Movie LEFT JOIN CatMovie ON CatMovie.MovieId = Movie.id JOIN Category ON Category.id = CatMovie.CategoryId WHERE Movie.name LIKE ? AND imdbRating >= ?";
+            if(categoryFilter.size() > 0) {
+                ArrayList<String> ids = new ArrayList<String>();
+                for (Category category : categoryFilter) {
+                    ids.add(String.valueOf(category.getID()));
+                }
+                sqlStatement += " AND CatMovie.CategoryId IN (" + String.join(",", ids) + ")";
+            }
+            PreparedStatement stmt = con.prepareStatement(sqlStatement);
+            stmt.setString(1, "%" + nameFilter + "%");
+            stmt.setDouble(2, minImdbRatingFilter);
+            ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 String name = rs.getString("name");
                 int rating = rs.getInt("rating");
@@ -157,6 +173,34 @@ public class MovieDAO {
                 }
             }
             return movies;
+        } catch (SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public void deleteObsoleteMovies() throws SQLException {
+        try (Connection con = ds.getConnection()) {
+            String sql = "DELETE FROM Movie WHERE rating < 6 AND DATEDIFF(day, lastview, GETDATE()) >= 730";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public ArrayList<String> getObsoleteMovies() throws SQLException {
+        ArrayList<String> obsoleteMovies = new ArrayList();
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT name FROM Movie WHERE rating < 6 AND DATEDIFF(day, lastview, GETDATE()) >= 730";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while(rs.next()) {
+                String name = rs.getString("name");
+                obsoleteMovies.add(name);
+            }
+            return obsoleteMovies;
         } catch (SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;

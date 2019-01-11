@@ -11,35 +11,49 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="687.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="677.0" prefWidth="872.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.MainWindowController">
    <children>
-      <HBox layoutX="259.0" layoutY="52.0" prefHeight="59.0" prefWidth="597.0" spacing="20.0">
+      <TableView fx:id="tableViewMain" layoutX="180.0" layoutY="119.0" prefHeight="507.0" prefWidth="676.0">
+        <columns>
+          <TableColumn fx:id="colMovieTitle" prefWidth="277.0" text="Movie Title" />
+          <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="243.0" text="Category" />
+            <TableColumn fx:id="colRating" minWidth="0.0" prefWidth="81.0" text="Rating" />
+            <TableColumn fx:id="colImdb" minWidth="0.0" prefWidth="74.0" text="IMDB" />
+        </columns>
+      </TableView>
+      <Button layoutX="12.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteMovie" prefHeight="80.0" prefWidth="161.0" text="Remove Movie" />
+      <Button layoutX="12.0" layoutY="119.0" mnemonicParsing="false" onAction="#addMovieWindow" prefHeight="80.0" prefWidth="161.0" text="Add Movie" />
+      <Button layoutX="12.0" layoutY="209.0" mnemonicParsing="false" onAction="#editMovieWindow" prefHeight="80.0" prefWidth="161.0" text="Edit Movie" />
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="245.0" text="Private Movie Collection">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button layoutX="802.0" layoutY="638.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="55.0" text="Exit" />
+      <HBox layoutX="331.0" layoutY="23.0" prefHeight="35.0" prefWidth="526.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#editCategoriesWindow" prefHeight="45.0" prefWidth="101.0" text="Edit Categories" />
-            <ComboBox fx:id="comboboxFilterCategory" prefHeight="45.0" prefWidth="150.0" promptText="Filter Category" />
-            <Label prefHeight="25.0" prefWidth="38.0" text="Search:" />
-            <TextField fx:id="textfieldSearch" prefHeight="25.0" prefWidth="239.0" />
+            <Label prefHeight="25.0" prefWidth="100.0" text="Min IMDB Rating:" />
+            <TextField fx:id="textfieldFilterImdb" prefHeight="10.0" prefWidth="52.0" />
+            <Label prefHeight="25.0" prefWidth="44.0" text="Search:" />
+            <TextField fx:id="textfieldSearch" prefHeight="12.0" prefWidth="258.0" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <TableView fx:id="tableViewMain" layoutX="180.0" layoutY="119.0" prefHeight="507.0" prefWidth="676.0">
-        <columns>
-          <TableColumn fx:id="colMovieTitle" prefWidth="384.0" text="Movie Title" />
-          <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="115.0" text="Category" />
-            <TableColumn fx:id="colRating" minWidth="0.0" prefWidth="78.0" text="Rating" />
-            <TableColumn fx:id="colImdb" minWidth="0.0" prefWidth="78.0" text="IMDB" />
-        </columns>
-      </TableView>
-      <Button layoutX="12.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteMovie" prefHeight="80.0" prefWidth="161.0" text="Remove Movie" />
-      <Button layoutX="12.0" layoutY="119.0" mnemonicParsing="false" onAction="#addMovieWindow" prefHeight="80.0" prefWidth="161.0" text="Add Movie" />
-      <Button layoutX="12.0" layoutY="209.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="161.0" text="Edit Movie" />
-      <Label layoutX="320.0" layoutY="14.0" prefHeight="32.0" prefWidth="301.0" text="My Private Movie Collection">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
-      <Button layoutX="801.0" layoutY="642.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Exit" />
+      <Button layoutX="14.0" layoutY="63.0" mnemonicParsing="false" onAction="#editCategoriesWindow" prefHeight="45.0" prefWidth="161.0" text="Edit Categories" />
+      <HBox layoutX="180.0" layoutY="68.0" prefHeight="35.0" prefWidth="676.0" spacing="10.0">
+         <children>
+            <ComboBox fx:id="comboboxSelectCategoryFilter" prefHeight="25.0" prefWidth="125.0" promptText="Filter Category" />
+            <Button mnemonicParsing="false" onAction="#addFilter" prefHeight="25.0" prefWidth="73.0" text="Add Filter" />
+            <Button mnemonicParsing="false" onAction="#resetFilter" prefHeight="25.0" prefWidth="86.0" text="Reset Filter" />
+            <Label prefHeight="24.0" prefWidth="120.0" text="Active Category Filter:" />
+            <Label fx:id="labelCategoryFilter" prefHeight="23.0" prefWidth="203.0" text="-" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <Button layoutX="12.0" layoutY="299.0" mnemonicParsing="false" onAction="#playMovie" prefHeight="80.0" prefWidth="161.0" text="Play Selected Movie" />
    </children>
 </AnchorPane>

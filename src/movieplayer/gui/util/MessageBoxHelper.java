@@ -33,10 +33,9 @@ public class MessageBoxHelper {
     }
     
     private static String getErrorMessage(Exception ex) {
-        if(ex instanceof SQLServerException) {
-            SQLServerException e = (SQLServerException)ex;
-            // 2627 => Unique key violated
-            return String.valueOf(e.getErrorCode());
+        if(ex instanceof NumberFormatException) {
+            NumberFormatException e = (NumberFormatException)ex;
+            return "Invalid format for number";
         }
         return ex.getLocalizedMessage();
     }
