@@ -13,23 +13,21 @@ import movieplayer.gui.util.MessageBoxHelper;
 public class MoviePlayer extends Application {
     
     MovieModel mmodel = new MovieModel();
-    MainWindowController mwCtrl = new MainWindowController();
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/movieplayer/gui/view/MainWindow.fxml"));
-        Scene scene = new Scene(root);
-        /*String css = MoviePlayer.class.getResource("style.css").toExternalForm();
-        scene.getStylesheets().add(css);*/
-        stage.setScene(scene);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/movieplayer/gui/view/MainWindow.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        MainWindowController controller = fxmlLoader.getController();
+        stage.setScene(new Scene(root));
         stage.show();
         
         if (mmodel.getObsoleteMovies().size() >= 1) {
             if(!MessageBoxHelper.askYesNo("Do you want to delete the obsolete movies " + mmodel.getObsoleteMovies() + "?")) {
                     return;
-                }
+            }
             mmodel.deleteObsoleteMovies();
-            mwCtrl.reload();
+            controller.reload();
         }
     }
 

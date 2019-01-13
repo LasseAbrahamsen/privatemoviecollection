@@ -90,6 +90,10 @@ public class MovieWindowController implements Initializable {
                 MessageBoxHelper.displayError("The filepath name must not be empty.");
                 return;
             }
+            if(datePickerLastSeen.getValue() == null) {
+                MessageBoxHelper.displayError("You have to pick the date where you have last seen the movie.");
+                return;
+            }
             if (!isEditing) {
                 mmodel.createMovie(movieName, Integer.parseInt(comboboxRating.getSelectionModel().getSelectedItem().toString()),
                         selectedCategories, textfieldFileChosen.getText(), datePickerLastSeen.getValue(), addImdbRating()); 
@@ -127,6 +131,10 @@ public class MovieWindowController implements Initializable {
     @FXML
     public void addCategory(ActionEvent event) {
         Category selectedCategory = comboboxAddCategory.getSelectionModel().getSelectedItem();
+        if(selectedCategory == null) {
+            MessageBoxHelper.displayError("You have to select a category");
+            return;
+        }
         if (!selectedCategories.contains(selectedCategory)) {
             selectedCategories.add(selectedCategory);
             updateCategoryLabel();
@@ -134,7 +142,7 @@ public class MovieWindowController implements Initializable {
             MessageBoxHelper.displayError("Category has already been added");
         } 
     }
-    
+        
     private void updateCategoryLabel() {
         String text = "";
         for (Category category : selectedCategories) {

@@ -4,16 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/dal/CategoryDAO.java</file>
-            <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/gui/model/CategoryModel.java</file>
-            <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/be/Movie.java</file>
             <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/dal/MovieDAO.java</file>
-            <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/gui/controller/CategoryWindowController.java</file>
-            <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/dal/CatMovDAO.java</file>
             <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/gui/controller/MainWindowController.java</file>
-            <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/gui/model/MovieModel.java</file>
             <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/gui/controller/MovieWindowController.java</file>
-            <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/bll/Manager.java</file>
             <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/bll/Facade.java</file>
+            <file>file:/C:/Users/youPCbr0/Documents/NetBeansProjects/MoviePlayer/src/movieplayer/MoviePlayer.java</file>
         </group>
     </open-files>
 </project-private>
