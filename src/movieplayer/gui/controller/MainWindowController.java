@@ -78,6 +78,13 @@ public class MainWindowController implements Initializable {
         colRating.setCellValueFactory(new PropertyValueFactory("rating"));
         colImdb.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         
+        /*
+            -> lambda syntax. In principle it's a method like this:
+            private void onFilterPropertyChanged(Observable observable) {
+            reload(); }
+        
+            addListener simply calls this method whenever stuff changes.
+        */
         textfieldSearch.textProperty().addListener((Observable observable) -> {
             reload();
         });

@@ -37,9 +37,8 @@ public class MovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //testMov = new MovieDAO
-    // testMov.createMovie(textfieldinfo, 0, data/movieName)
-    //creates a movie with variables name, rating, categories, filelink
+    
+    //creates a movie with variables name, rating, categories, filelink, lastview, imdbRating
     public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, double imdbRating) throws SQLException, CreateMovieException {
         Movie m = null;
         try (Connection con = ds.getConnection()) {
