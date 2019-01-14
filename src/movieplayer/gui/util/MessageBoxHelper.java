@@ -1,6 +1,5 @@
 package movieplayer.gui.util;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

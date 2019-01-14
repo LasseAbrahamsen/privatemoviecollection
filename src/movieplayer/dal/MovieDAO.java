@@ -140,7 +140,7 @@ public class MovieDAO {
         try (Connection con = ds.getConnection()) {
             String sqlStatement = "SELECT Movie.id, Movie.name, Movie.rating, Movie.filelink, Movie.lastview, Movie.imdbRating, Category.name AS categoryName, Category.id AS categoryId FROM Movie LEFT JOIN CatMovie ON CatMovie.MovieId = Movie.id JOIN Category ON Category.id = CatMovie.CategoryId WHERE Movie.name LIKE ? AND imdbRating >= ?";
             if(categoryFilter.size() > 0) {
-                ArrayList<String> ids = new ArrayList<String>();
+                ArrayList<String> ids = new ArrayList<>();
                 for (Category category : categoryFilter) {
                     ids.add(String.valueOf(category.getID()));
                 }

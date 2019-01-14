@@ -1,21 +1,13 @@
 package movieplayer.gui.controller;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import java.awt.Desktop;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,17 +17,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
-import movieplayer.dal.MovieDAO;
 import movieplayer.gui.model.CategoryModel;
 import movieplayer.gui.model.MovieModel;
 import movieplayer.gui.util.MessageBoxHelper;
@@ -70,7 +58,7 @@ public class MainWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        selectedCategories = new ArrayList<Category>();
+        selectedCategories = new ArrayList<>();
         observableListCategory = cmodel.getCategories();
         
         colMovieTitle.setCellValueFactory(new PropertyValueFactory("name"));
@@ -98,6 +86,16 @@ public class MainWindowController implements Initializable {
     }
     
     public void reload() {
+        try {
+            tableViewMain.setItems(mmodel.getMovies(textfieldSearch.getText(), getImdbRating(), selectedCategories));
+        } catch (SQLException ex) {
+            MessageBoxHelper.displayException(ex);
+        }
+        
+    }
+    
+    @FXML
+    public void reloadClick(ActionEvent event) {
         try {
             tableViewMain.setItems(mmodel.getMovies(textfieldSearch.getText(), getImdbRating(), selectedCategories));
         } catch (SQLException ex) {

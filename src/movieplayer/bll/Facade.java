@@ -13,7 +13,7 @@ import movieplayer.exceptions.CreateCategoryException;
 import movieplayer.exceptions.CreateMovieException;
 
 /**
- *
+ * 
  * @author a
  */
 public class Facade {
@@ -60,5 +60,4 @@ public class Facade {
     public List<Category> getAllCategories() {
         return cdao.getAllCategories();
     }
-
 }

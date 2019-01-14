@@ -58,6 +58,7 @@ public class MovieWindowController implements Initializable {
         selectedCategories = new ArrayList<>();
         
         comboboxRating.getItems().addAll(0,1,2,3,4,5,6,7,8,9,10);
+        comboboxRating.setValue(0);
         comboboxAddCategory.getItems().addAll(observableListCategory);
     }
 
@@ -89,6 +90,10 @@ public class MovieWindowController implements Initializable {
             }
             if(datePickerLastSeen.getValue() == null) {
                 MessageBoxHelper.displayError("You have to pick the date where you have last seen the movie.");
+                return;
+            }
+            if(selectedCategories.isEmpty()) {
+                MessageBoxHelper.displayError("You have to add at least one category.");
                 return;
             }
             if (!isEditing) {
