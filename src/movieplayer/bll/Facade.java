@@ -49,10 +49,6 @@ public class Facade {
         return cdao.createCategory(name);
     }
     
-    public Category updateCategory(Category category, String name) {
-        return cdao.updateCategory(category, name);
-    }
-    
     public void deleteCategory(Category c) throws SQLException {
         cdao.deleteCategory(c);
     }

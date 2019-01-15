@@ -12,10 +12,6 @@ import java.util.logging.Logger;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
 
-/**
- *
- * @author a
- */
 public class CatMovDAO {
     
         SQLServerDataSource ds;
@@ -69,10 +65,4 @@ public class CatMovDAO {
             throw ex;
         }
     }
-    
-    
-    //SELECT * FROM CatMovie INNER JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CatMovie.CategoryId = ?
-        
-        
-    
 }

@@ -80,26 +80,6 @@ public class CategoryDAO {
             return lastID;
         }
     }
-    
-    public Category updateCategory(Category category, String name) {
-        try (Connection con = ds.getConnection()) {
-            String query = "UPDATE Category set name=? WHERE id=?";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, name);
-            preparedStmt.setInt(2, category.getID());
-            preparedStmt.executeUpdate();
-            Category c = new Category(name, category.getID());
-            return c;
-        }
-        catch (SQLServerException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
 
     public void deleteCategory(Category c) throws SQLException {
         try (Connection con = ds.getConnection()) {

@@ -76,6 +76,7 @@ public class MovieWindowController implements Initializable {
         }
     }
     
+    //Saves movie by editing or creating.
     @FXML
     private void saveMovie(ActionEvent event) {
         try {

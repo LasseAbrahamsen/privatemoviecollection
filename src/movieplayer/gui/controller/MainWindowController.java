@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
@@ -92,7 +93,6 @@ public class MainWindowController implements Initializable {
         } catch (SQLException ex) {
             MessageBoxHelper.displayException(ex);
         }
-        
     }
     
     private double getImdbRating() {
@@ -105,7 +105,6 @@ public class MainWindowController implements Initializable {
                 return Double.parseDouble(textfieldFilterImdb.getText());
         }
         catch(NumberFormatException ex) {
-            //MessageBoxHelper.displayException(ex);
             return 0.0;
         }
     }
@@ -116,6 +115,8 @@ public class MainWindowController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) new Stage();
         stage.setScene(scene);
+        stage.setTitle("Editing categories");
+        stage.getIcons().add(new Image("/icon.png"));
         stage.show();
     }
 
@@ -125,6 +126,8 @@ public class MainWindowController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) new Stage();
         stage.setScene(scene);
+        stage.setTitle("Adding movie to database");
+        stage.getIcons().add(new Image("/icon.png"));
         stage.showAndWait();
         
         reload();
@@ -133,15 +136,21 @@ public class MainWindowController implements Initializable {
     @FXML
     private void editMovieWindow(ActionEvent event) throws IOException {
         Movie selectedMovie = tableViewMain.getSelectionModel().getSelectedItem();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/movieplayer/gui/view/MovieWindow.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        MovieWindowController controller = fxmlLoader.getController();
-        controller.setEditingMode(selectedMovie);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
-        
-        reload();
+        if (selectedMovie == null) {
+            MessageBoxHelper.displayError("You must select a movie to edit.");
+        } else {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/movieplayer/gui/view/MovieWindow.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            MovieWindowController controller = fxmlLoader.getController();
+            controller.setEditingMode(selectedMovie);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Editing movie from the database.");
+            stage.getIcons().add(new Image("/icon.png"));
+            stage.showAndWait();
+
+            reload();
+        }
     }
     
     @FXML 
@@ -155,7 +164,7 @@ public class MainWindowController implements Initializable {
                 mmodel.deleteMovie(clickedMovie);
                 reload();
             } else {
-                MessageBoxHelper.displayError("You must select a movie.");
+                MessageBoxHelper.displayError("You must select a movie to delete.");
             } 
         } catch(SQLException ex) {
             MessageBoxHelper.displayException(ex);
@@ -206,8 +215,12 @@ public class MainWindowController implements Initializable {
     private void playMovie(ActionEvent event) {
         try {
             Movie clickedMovie = tableViewMain.getSelectionModel().getSelectedItem();
-            File file = new File(clickedMovie.getFilelink());
-            Desktop.getDesktop().open(file);
+            if (clickedMovie == null) {
+                MessageBoxHelper.displayError("You must select a movie to play.");
+            } else {
+                File file = new File(clickedMovie.getFilelink());
+                Desktop.getDesktop().open(file);    
+            }
         } catch (IOException ex) {
             MessageBoxHelper.displayException(ex);
         } catch (IllegalArgumentException ex) {

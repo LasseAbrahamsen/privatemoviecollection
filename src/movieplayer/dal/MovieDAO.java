@@ -13,10 +13,6 @@ import movieplayer.be.Category;
 import movieplayer.be.Movie;
 import movieplayer.exceptions.CreateMovieException;
 
-/**
- *
- * @author a
- */
 public class MovieDAO {
     
     SQLServerDataSource ds;
@@ -38,7 +34,7 @@ public class MovieDAO {
         }
     }
     
-    //creates a movie with variables name, rating, categories, filelink, lastview, imdbRating
+    //Creates a movie with variables name, rating, categories, filelink, lastview, imdbRating.
     public Movie createMovie(String name, int rating, ArrayList<Category> categories, String filelink, Date lastview, double imdbRating) throws SQLException, CreateMovieException {
         Movie m = null;
         try (Connection con = ds.getConnection()) {
@@ -55,7 +51,7 @@ public class MovieDAO {
             return m;
         } catch (SQLServerException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
-            if(ex.getErrorCode() == 2627) {
+            if(ex.getErrorCode() == 2627) { //2627 = unique key violated.
                 throw new CreateMovieException("There is already a movie with name " + name);
             }
             throw ex;
@@ -122,7 +118,7 @@ public class MovieDAO {
         }
     }
     
-    //returns a list of all movies.
+    //Returns a list of all movies including filtering.
     /*
     We generate a local hashmap outside of the database. In the first iteration of the while(rs.next())
     it jumps right into the else clause, because it checks the ID of the hashmap which doesn't contain anything.
@@ -131,10 +127,12 @@ public class MovieDAO {
     the id that is now inside the moviesById local hashmap) we jump inside the if clause and just add
     categories to the single movie element.
     
-    The whole point is to avoid duplicating movies in the list that we return.
+    The whole point of the if-else is to avoid duplicating movies in the list that we return.
     
-    At the top we also have a filtering option. If there is anything in the arraylist category,
-    we make a new arraylist, and for each entry in categoryFilter, we add categoryID to the list of strings.
+    At the top we also have a filtering if statement. If arraylist categoryFilter.size() > 0,
+    we make a new arraylist<String>, and for each entry in categoryFilter, we add categoryID to the list of strings.
+    Then, we join the IDs together with the String.join method, separating them with a , to make it work in the SQL statement
+    AND CatMovie.CategoryId IN (%, %, %). Finally this is added to the existing string sqlStatement.
     */
     
     public ArrayList<Movie> getAllMovies(String nameFilter, double minImdbRatingFilter, ArrayList<Category> categoryFilter) throws SQLException {
@@ -181,6 +179,7 @@ public class MovieDAO {
         }
     }
     
+    //Deletes movies that are under 6 personal rating and are over 730 days old (2 years).
     public void deleteObsoleteMovies() throws SQLException {
         try (Connection con = ds.getConnection()) {
             String sql = "DELETE FROM Movie WHERE rating < 6 AND DATEDIFF(day, lastview, GETDATE()) >= 730";
@@ -192,6 +191,7 @@ public class MovieDAO {
         }
     }
     
+    //Returns a list of strings which contains the movie names.
     public ArrayList<String> getObsoleteMovies() throws SQLException {
         ArrayList<String> obsoleteMovies = new ArrayList();
         try (Connection con = ds.getConnection()) {

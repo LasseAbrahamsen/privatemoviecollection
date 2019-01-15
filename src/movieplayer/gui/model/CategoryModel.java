@@ -26,10 +26,6 @@ public class CategoryModel {
         return facade.createCategory(name);
     }
     
-    public Category updateCategory(Category category, String name) {
-        return facade.updateCategory(category, name);
-    }
-    
     public void deleteCategory(Category c) throws SQLException {
         facade.deleteCategory(c);
     }

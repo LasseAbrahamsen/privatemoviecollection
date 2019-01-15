@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import movieplayer.gui.controller.MainWindowController;
 import movieplayer.gui.model.MovieModel;
@@ -20,6 +21,8 @@ public class MoviePlayer extends Application {
         Parent root = (Parent) fxmlLoader.load();
         MainWindowController controller = fxmlLoader.getController();
         stage.setScene(new Scene(root));
+        stage.setTitle("Private Movie Collection");
+        stage.getIcons().add(new Image("/icon.png"));
         stage.show();
         
         if (mmodel.getObsoleteMovies().size() >= 1) {
