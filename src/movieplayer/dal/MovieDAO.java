@@ -132,6 +132,9 @@ public class MovieDAO {
     categories to the single movie element.
     
     The whole point is to avoid duplicating movies in the list that we return.
+    
+    At the top we also have a filtering option. If there is anything in the arraylist category,
+    we make a new arraylist, and for each entry in categoryFilter, we add categoryID to the list of strings.
     */
     
     public ArrayList<Movie> getAllMovies(String nameFilter, double minImdbRatingFilter, ArrayList<Category> categoryFilter) throws SQLException {
@@ -146,10 +149,10 @@ public class MovieDAO {
                 }
                 sqlStatement += " AND CatMovie.CategoryId IN (" + String.join(",", ids) + ")";
             }
-            PreparedStatement stmt = con.prepareStatement(sqlStatement);
-            stmt.setString(1, "%" + nameFilter + "%");
-            stmt.setDouble(2, minImdbRatingFilter);
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement pstmt = con.prepareStatement(sqlStatement);
+            pstmt.setString(1, "%" + nameFilter + "%");
+            pstmt.setDouble(2, minImdbRatingFilter);
+            ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
                 String name = rs.getString("name");
                 int rating = rs.getInt("rating");

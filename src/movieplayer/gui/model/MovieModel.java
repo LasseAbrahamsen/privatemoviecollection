@@ -1,6 +1,5 @@
 package movieplayer.gui.model;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;

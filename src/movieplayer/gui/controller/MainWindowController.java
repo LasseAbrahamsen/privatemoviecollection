@@ -76,6 +76,7 @@ public class MainWindowController implements Initializable {
         textfieldSearch.textProperty().addListener((Observable observable) -> {
             reload();
         });
+        textfieldFilterImdb.setText("0.0");
         textfieldFilterImdb.textProperty().addListener((Observable observable) -> {
             reload();
         });
@@ -94,21 +95,17 @@ public class MainWindowController implements Initializable {
         
     }
     
-    @FXML
-    public void reloadClick(ActionEvent event) {
-        try {
-            tableViewMain.setItems(mmodel.getMovies(textfieldSearch.getText(), getImdbRating(), selectedCategories));
-        } catch (SQLException ex) {
-            MessageBoxHelper.displayException(ex);
-        }
-        
-    }
-    
     private double getImdbRating() {
         try {
-            return Double.parseDouble(textfieldFilterImdb.getText());
+                if(!textfieldFilterImdb.getText().matches("[0.-9.]*") || textfieldFilterImdb.getText() == null) {
+                    MessageBoxHelper.displayError("You must write a number in minimum IMDB rating filter");
+                    textfieldFilterImdb.clear();
+                    return 0.0;
+                }
+                return Double.parseDouble(textfieldFilterImdb.getText());
         }
         catch(NumberFormatException ex) {
+            //MessageBoxHelper.displayException(ex);
             return 0.0;
         }
     }

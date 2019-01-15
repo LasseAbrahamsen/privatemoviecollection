@@ -1,9 +1,7 @@
 package movieplayer.be;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.sql.Date;
-import java.util.List;
 
 public class Movie {
     
@@ -85,9 +83,4 @@ public class Movie {
     public void setImdbRating(double imdbRating) {
         this.imdbRating = imdbRating;
     }
-    
-    
-    
-    
-    
 }

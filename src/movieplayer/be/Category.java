@@ -1,9 +1,5 @@
 package movieplayer.be;
 
-/**
- *
- * @author a
- */
 public class Category {
     
     private String name;

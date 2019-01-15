@@ -1,7 +1,6 @@
 package movieplayer.gui.model;
 
 import java.sql.SQLException;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import movieplayer.be.Category;
