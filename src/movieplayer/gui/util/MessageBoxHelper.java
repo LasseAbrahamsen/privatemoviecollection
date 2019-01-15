@@ -33,7 +33,6 @@ public class MessageBoxHelper {
     
     private static String getErrorMessage(Exception ex) {
         if(ex instanceof NumberFormatException) {
-            NumberFormatException e = (NumberFormatException)ex;
             return "Invalid format for number";
         }
         return ex.getLocalizedMessage();
