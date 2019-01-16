@@ -23,7 +23,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
@@ -89,7 +88,6 @@ public class MainWindowController implements Initializable {
         textfieldSearch.textProperty().addListener((Observable observable) -> {
             reload();
         });
-        textfieldFilterImdb.setText("0.0");
         textfieldFilterImdb.textProperty().addListener((Observable observable) -> {
             reload();
         });

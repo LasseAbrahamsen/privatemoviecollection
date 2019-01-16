@@ -47,7 +47,6 @@ public class MovieWindowController implements Initializable {
     CategoryModel cmodel = new CategoryModel();
     private ObservableList<Category> observableListCategory;
     
-
     /**
      * Initializes the controller class.
      */
@@ -66,7 +65,6 @@ public class MovieWindowController implements Initializable {
     @FXML
     private void getFileLink(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        //fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "Desktop")); //Sets the directory to the desktop
         fileChooser.setTitle("Select movie (.mp4 or .mpeg4 file)");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Movie Files", "*.mp4", "*.mpeg4"));
