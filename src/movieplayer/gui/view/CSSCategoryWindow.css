@@ -1,0 +1,136 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 15, 2019, 8:39:05 PM
+    Author     : WailamPoon
+*/
+#labelTitle{
+
+    -fx-background-color:  black;
+    -fx-text-fill:linear-gradient(to top,#7129bd, #c31a5b, #ffdd1f);
+}
+
+
+#listviewCategories{
+    -fx-background-color:  black;
+    -fx-control-inner-background: black;
+    -fx-border-color: linear-gradient(to right,#7129bd, #c31a5b, #ffdd1f);
+    -fx-border-width: 3;
+    -fx-border-radius:4.5;
+    -fx-background-radius:  22;
+
+}
+
+
+#cancelbtn4{
+ -fx-font-size:16;
+
+    -FX-background-color:#c34642;
+    -fx-text-fill: white;
+    -fx-background-radius:  22;
+     -fx-border-radius:  22;
+}
+
+#cancelbtn4:hover{
+-FX-background-color:#c34642;
+    -fx-font-size: 18;
+     -fx-text-fill: white;
+     -fx-background-radius:  22;
+     -fx-border-radius:  22;
+     -fx-border-color: white;
+}
+
+
+#cancelbtn4:pressed{
+ -FX-background-color:#c34642;
+    -fx-font-size:16;
+    
+     -fx-text-fill: white;
+     -fx-background-radius:  22;
+     -fx-border-radius:  22;
+     
+   
+}
+
+
+/*--------------------------------------*/
+
+#addCatbtn{   
+    -fx-font-weight:    bold;
+    -fx-background-color: linear-gradient(to left,#7129bd, #c31a5b, #ffdd1f);
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-width: 2; 
+    -fx-border-radius:22;
+
+
+}
+
+#addCatbtn:hover{  
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16.5;
+    -fx-text-fill: #c31a5b;
+    -fx-border-color: linear-gradient(to right, #c31a5b,#ffdd1f, #7129bd);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    
+}
+
+#addCatbtn:pressed{   
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: #7129bd;
+    -fx-border-color: linear-gradient(to right,#7129bd, #c31a5b, #ffdd1f);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-rotate:15;
+}
+
+
+
+
+/*--------------------------------------*/
+
+
+#deleteCatbtn{   
+    -fx-font-weight:    bold;
+    -fx-background-color: linear-gradient(to left,#7129bd, #c31a5b, #ffdd1f);
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-width: 2; 
+    -fx-border-radius:22;
+
+
+}
+#deleteCatbtn:hover{  
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16.5;
+    -fx-text-fill: #c31a5b;
+    -fx-border-color: linear-gradient(to right, #c31a5b,#ffdd1f, #7129bd);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    
+}
+
+#deleteCatbtn:pressed{   
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: #7129bd;
+    -fx-border-color: linear-gradient(to right,#7129bd, #c31a5b, #ffdd1f);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-rotate:15;
+}

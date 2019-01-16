@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="414.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.MovieWindowController">
+<AnchorPane id="AnchorPane" prefHeight="414.0" prefWidth="657.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.MovieWindowController">
    <children>
       <VBox layoutX="12.0" layoutY="84.0" prefHeight="266.0" prefWidth="470.0" spacing="10.0">
          <children>
             <HBox prefHeight="35.0" prefWidth="407.0" spacing="20.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="73.0" text="Title: " />
-                  <TextField fx:id="textfieldMovieName" prefHeight="25.0" prefWidth="249.0" />
+                  <Label prefHeight="25.0" prefWidth="73.0" text="Title: " textFill="WHITE" />
+                  <TextField fx:id="textfieldMovieName" prefHeight="25.0" prefWidth="249.0" stylesheets="@CSSMovieWindow.css" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -26,8 +26,8 @@
             </HBox>
             <HBox prefHeight="41.0" prefWidth="379.0" spacing="20.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="73.0" text="Category:" />
-                  <Label fx:id="labelCategories" prefHeight="33.0" prefWidth="369.0" text="-" />
+                  <Label prefHeight="25.0" prefWidth="73.0" text="Category:" textFill="WHITE" />
+                  <Label fx:id="labelCategories" prefHeight="33.0" prefWidth="369.0" text="-" textFill="WHITE" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -35,10 +35,20 @@
             </HBox>
             <HBox prefHeight="35.0" prefWidth="407.0" spacing="20.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="73.0" text="Rating:" />
-                  <ComboBox fx:id="comboboxRating" prefHeight="31.0" prefWidth="97.0" promptText="0" />
-                  <Label prefHeight="29.0" prefWidth="95.0" text="IMDB Rating:" />
-                  <TextField fx:id="textfieldImdbRating" prefHeight="31.0" prefWidth="53.0" />
+                  <Label prefHeight="25.0" prefWidth="73.0" text="Rating:" textFill="WHITE" />
+                  <ComboBox fx:id="comboboxRating" prefHeight="31.0" prefWidth="97.0" promptText="0" stylesheets="@CSSMovieWindow.css" />
+                  <Label prefHeight="29.0" prefWidth="95.0" text="IMDB Rating:" textFill="WHITE" />
+                  <TextField fx:id="textfieldImdbRating" prefHeight="31.0" prefWidth="53.0" stylesheets="@CSSMovieWindow.css" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="fileInput" prefHeight="35.0" prefWidth="407.0" spacing="20.0" stylesheets="@CSSMovieWindow.css">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="73.0" text="File:" textFill="WHITE" />
+                  <TextField fx:id="textfieldFileChosen" editable="false" prefHeight="25.0" prefWidth="249.0" stylesheets="@CSSMovieWindow.css" />
+                  <Button fx:id="selectfilebtn" mnemonicParsing="false" onAction="#getFileLink" stylesheets="@CSSMovieWindow.css" text="Select File" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -46,18 +56,8 @@
             </HBox>
             <HBox prefHeight="35.0" prefWidth="407.0" spacing="20.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="73.0" text="File:" />
-                  <TextField fx:id="textfieldFileChosen" editable="false" prefHeight="25.0" prefWidth="249.0" />
-                  <Button mnemonicParsing="false" onAction="#getFileLink" text="Select File..." />
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="35.0" prefWidth="407.0" spacing="20.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="73.0" text="Last Seen:" />
-                  <DatePicker fx:id="datePickerLastSeen" />
+                  <Label prefHeight="25.0" prefWidth="73.0" text="Last Seen:" textFill="WHITE" />
+                  <DatePicker fx:id="datePickerLastSeen" stylesheets="@CSSMovieWindow.css" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -65,15 +65,15 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="450.0" layoutY="356.0" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="92.0" text="Cancel" />
-      <Button layoutX="551.0" layoutY="356.0" mnemonicParsing="false" onAction="#saveMovie" prefHeight="35.0" prefWidth="92.0" text="Save" />
-      <Label layoutX="191.0" layoutY="14.0" text="You are editing or adding a movie.">
+      <Button fx:id="cancelbtn2" layoutX="586.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="53.0" stylesheets="@CSSMovieWindow.css" text="Exit" />
+      <Button fx:id="savebtn2" layoutX="551.0" layoutY="356.0" mnemonicParsing="false" onAction="#saveMovie" prefHeight="35.0" prefWidth="92.0" stylesheets="@CSSMovieWindow.css" text="Save" />
+      <Label fx:id="label" layoutX="191.0" layoutY="14.0" stylesheets="@CSSMovieWindow.css" text="You are editing or adding a movie.">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboboxAddCategory" layoutX="496.0" layoutY="136.0" prefHeight="31.0" prefWidth="120.0" promptText="Add Category" />
-      <Button layoutX="496.0" layoutY="62.0" mnemonicParsing="false" onAction="#resetCategories" text="Reset Categories" />
-      <Button layoutX="496.0" layoutY="99.0" mnemonicParsing="false" onAction="#addCategory" text="Add Category" />
+      <ComboBox fx:id="comboboxAddCategory" layoutX="480.0" layoutY="170.0" prefHeight="30.0" promptText="Select Category" stylesheets="@CSSMovieWindow.css" />
+      <Button fx:id="resetCatbtn" layoutX="480.0" layoutY="90.0" mnemonicParsing="false" onAction="#resetCategories" stylesheets="@CSSMovieWindow.css" text="Reset Categories" />
+      <Button fx:id="addCatbtn" layoutX="480.0" layoutY="130.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="30.0" stylesheets="@CSSMovieWindow.css" text="Add Category" />
    </children>
 </AnchorPane>

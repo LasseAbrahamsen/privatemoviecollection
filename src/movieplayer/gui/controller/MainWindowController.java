@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -22,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import movieplayer.be.Category;
 import movieplayer.be.Movie;
@@ -46,6 +48,16 @@ public class MainWindowController implements Initializable {
     @FXML private TextField textfieldFilterImdb;
     @FXML private Label labelCategoryFilter;
     @FXML private ComboBox<Category> comboboxSelectCategoryFilter;
+    
+    //instance variable for css
+    @FXML private Button removeMoviebtn;
+    @FXML private Button editMoviebtn;
+    @FXML private Label title;
+    @FXML private Button exitbtn;
+    @FXML private Button editCategoriesbtn;
+    @FXML private Button playbtn;
+    @FXML private Button addFilterbtn;
+    @FXML private Button resetFilterbtn;
     
     private ArrayList<Category> selectedCategories;
     

@@ -1,0 +1,393 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 15, 2019, 10:02:29 AM
+    Author     : WailamPoon
+*/
+
+
+
+
+
+/*--------------------------------------*/
+
+#addMoviebtn{   
+    -fx-font-weight:    bold;
+    -fx-background-color: linear-gradient(to left,#7129bd, #c31a5b, #ffdd1f);
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-width: 2; 
+    -fx-border-radius:22;
+
+
+}
+
+#addMoviebtn:hover{  
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 18;
+    -fx-text-fill: #c31a5b;
+    -fx-border-color: linear-gradient(to right, #c31a5b,#ffdd1f, #7129bd);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-padding:  5px;
+}
+
+#addMoviebtn:pressed{   
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: #7129bd;
+    -fx-border-color: linear-gradient(to right,#7129bd, #c31a5b, #ffdd1f);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-rotate:15;
+}
+
+#editMoviebtn{   
+    -fx-font-weight:    bold;
+    -fx-background-color: linear-gradient(to left,#7129bd, #c31a5b, #ffdd1f);
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-width: 2; 
+    -fx-border-radius:22;
+}
+
+#editMoviebtn:hover{  
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 18;
+    -fx-text-fill: #c31a5b;
+    -fx-border-color: linear-gradient(to right, #c31a5b,#ffdd1f, #7129bd);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-padding:  5px;
+}
+
+#editMoviebtn:pressed{   
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: #7129bd;
+    -fx-border-color: linear-gradient(to right,#7129bd, #c31a5b, #ffdd1f);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-rotate:15;
+}
+
+
+
+#removeMoviebtn{   
+    -fx-font-weight:    bold;
+    -fx-background-color: linear-gradient(to left,#7129bd, #c31a5b, #ffdd1f);
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-width: 2; 
+    -fx-border-radius:22;
+
+}
+
+#removeMoviebtn:hover{  
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 18;
+    -fx-text-fill: #c31a5b;
+    -fx-border-color: linear-gradient(to right, #c31a5b,#ffdd1f, #7129bd);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-padding:  5px;
+}
+
+#removeMoviebtn:pressed{   
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: #7129bd;
+    -fx-border-color: linear-gradient(to right,#7129bd, #c31a5b, #ffdd1f);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-rotate:15;
+
+}
+
+
+/*-------------------------*/
+#editCategoriesbtn{   
+    -fx-font-weight:    bold;
+    /* -fx-background-color: linear-gradient(to right, #ffdd1f, #c31a5b,#1F09FF);*/
+    -fx-background-color:black;
+    -fx-border-color: linear-gradient(to right, #ffdd1f, #c31a5b,#1F09FF);
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-width: 2; 
+    -fx-border-radius:22;
+
+}
+
+#editCategoriesbtn:hover{  
+    -fx-font-weight:    bold;
+    -fx-background-color:  black; 
+    -fx-background-radius:  22;
+    -fx-font-size: 16.5;
+    -fx-text-fill: white;
+    -fx-border-color: linear-gradient(to left,  #c31a5b,#ffdd1f);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+
+}
+
+#editCategoriesbtn:pressed{   
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-color: linear-gradient(to left, #ffdd1f, #c31a5b,#1F09FF);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+
+}
+
+/*--------------------*/
+
+#comboboxSelectCategoryFilter{   
+    -fx-font-weight:    bold;
+    -fx-background-color:black;
+    -fx-border-color: linear-gradient(to left, #ffdd1f, #c31a5b,#1F09FF);
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-border-width: 2; 
+    -fx-border-radius:22;
+    -fx-control-inner-background: black;
+
+}
+
+#comboboxSelectCategoryFilter:hover{  
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16.5;
+    -fx-text-fill: #c31a5b;
+    -fx-border-color: linear-gradient(to right, #c31a5b,#ffdd1f);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-control-inner-background: black;
+}
+
+#comboboxSelectCategoryFilter:pressed{   
+    -fx-font-weight:    bold;
+    -fx-background-color:  black;
+    -fx-background-radius:  22;
+    -fx-font-size: 16;
+    -fx-text-fill: #7129bd;
+    -fx-border-color: linear-gradient(to right, #ffdd1f,#c31a5b,#1F09FF );
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+    -fx-control-inner-background: black;
+
+}
+
+/*-------------------------*/
+
+#exitbtn{
+    -fx-font-size:16;
+
+    -FX-background-color:#c34642;
+    -fx-text-fill: white;
+    -fx-background-radius:  22;
+     -fx-border-radius:  22;
+}
+
+#exitbtn:hover{
+  -FX-background-color:#c34642;
+    -fx-font-size: 18;
+     -fx-text-fill: white;
+     -fx-background-radius:  22;
+     -fx-border-radius:  22;
+     -fx-border-color: white;
+
+}
+
+
+#exitbtn:pressed{
+  -FX-background-color:#c34642;
+    -fx-font-size:16;
+    
+     -fx-text-fill: white;
+     -fx-background-radius:  22;
+     -fx-border-radius:  22;
+     
+
+}
+/*-------------------------*/
+#tableViewMain {
+    -fx-border-color: linear-gradient(to right,#7129bd, #c31a5b, #ffdd1f);
+    -fx-background-color:#000000;
+    -fx-border-width: 3;
+    -fx-background-color: transparent;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-table-cell-border-color: transparent;
+
+    -fx-border-radius:4.5;
+
+}
+
+
+
+
+/*-------------------------*/
+
+#textfieldSearch{   
+    -fx-background-color:#000000;
+    -fx-border-color: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-font-size: 12;
+    -fx-text-fill: linear-gradient(to right,#1f09ff,#7129bd, #c31a5b, #ffdd1f); 
+}
+
+
+#textfieldSearch:hover{   
+    -fx-background-color:#000000;
+    -fx-border-color: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-font-size: 13.5;
+
+    -fx-text-fill: linear-gradient(to right,#1f09ff,#7129bd, #c31a5b, #ffdd1f); 
+}
+/*-------------------------*/
+
+#title{
+    -fx-text-fill: linear-gradient(to right,#1f09ff,#7129bd, #c31a5b, #ffdd1f); 
+}
+
+/*-------------------------*/
+
+
+#playbtn{
+ -fx-text-fill: white;
+    -fx-background-color:#c34642;
+    -fx-font-size: 14;
+    -fx-background-radius:  22;
+     -fx-border-radius:  22;
+}
+
+#playbtn:hover{
+
+    -fx-background-color:#c34642;
+    -fx-font-size: 14.5;
+    -fx-background-radius:  22;
+     -fx-border-radius:  22;
+     -fx-border-color: white;
+}
+
+#playbtn:pressed{
+ -fx-text-fill: white;
+    -fx-background-color:#c34642;
+    -fx-font-size: 14;
+    -fx-background-radius:  22;
+     -fx-border-radius:  22;
+}
+
+/*-------------------------*/
+
+#addFilterbtn{
+    -fx-background-color:black;
+    -fx-text-fill: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-border-color: linear-gradient(to right top, #ffdd1f,#c31a5b,#1F09FF );
+}
+#addFilterbtn:hover{
+    -fx-background-color:black;
+    -fx-text-fill: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-font-size: 13.5;
+    -fx-border-color: linear-gradient(to right,  #c31a5b,#ffdd1f);
+
+}
+
+#addFilterbtn:pressed{   
+
+    -fx-background-color:  black;
+
+    -fx-background-radius:  22;
+
+    -fx-text-fill: white;
+    -fx-border-color: linear-gradient(to left, #ffdd1f, #c31a5b,#1F09FF);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+
+}
+
+/*-------------------------*/
+
+#resetFilterbtn{
+
+    -fx-background-color:black;
+    -fx-text-fill: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-border-color: linear-gradient(to left bottom, #ffdd1f,#c31a5b,#1F09FF );
+}
+#resetFilterbtn:hover{
+    -fx-background-color:black;
+    -fx-text-fill: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-font-size: 13.5;
+    -fx-border-color: linear-gradient(to left,  #c31a5b,#ffdd1f);
+
+}
+
+#resetFilterbtn:pressed{   
+
+    -fx-background-color:  black;
+
+    -fx-background-radius:  22;
+
+    -fx-text-fill: white;
+    -fx-border-color: linear-gradient(to right, #ffdd1f, #c31a5b,#1F09FF);
+    -fx-border-radius:22;
+    -fx-border-width: 2;
+
+}
+
+/*-------------------------*/
+#textfieldFilterImdb{
+    -fx-background-color:#000000;
+    -fx-border-color: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-font-size: 12;
+    -fx-text-fill: linear-gradient(to right,#1f09ff,#7129bd, #c31a5b, #ffdd1f); 
+}
+
+
+#textfieldFilterImdb:hover{   
+    -fx-background-color:#000000;
+    -fx-border-color: white;
+    -fx-background-radius:  22;
+    -fx-border-radius:22;
+    -fx-font-size: 12;
+
+    -fx-text-fill: linear-gradient(to right,#1f09ff,#7129bd, #c31a5b, #ffdd1f); 
+}
+/*-------------------------*/

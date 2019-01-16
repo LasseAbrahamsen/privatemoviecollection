@@ -3,14 +3,25 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="553.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.CategoryWindowController">
+<AnchorPane id="AnchorPane" prefHeight="553.0" prefWidth="364.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movieplayer.gui.controller.CategoryWindowController">
    <children>
-      <ListView fx:id="listviewCategories" layoutX="16.0" layoutY="48.0" prefHeight="386.0" prefWidth="326.0" />
-      <Label fx:id="labelTitle" layoutX="76.0" layoutY="23.0" text="Here's a list of your current categories:" />
-      <Button layoutX="245.0" layoutY="448.0" mnemonicParsing="false" onAction="#newCategoryWindow" text="Add Category" />
-      <Button layoutX="9.0" layoutY="448.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete Selected Category" />
-      <Button layoutX="7.0" layoutY="503.0" mnemonicParsing="false" onAction="#close" text="Cancel" />
+      <ListView fx:id="listviewCategories" layoutX="22.0" layoutY="88.0" prefHeight="389.0" prefWidth="326.0" stylesheets="@CSSCategoryWindow.css" />
+      <Label fx:id="labelTitle" layoutX="97.0" layoutY="50.0" stylesheets="@CSSCategoryWindow.css" text="Current Categories List" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Button fx:id="addCatbtn" layoutX="200.0" layoutY="492.0" mnemonicParsing="false" onAction="#newCategoryWindow" stylesheets="@CSSCategoryWindow.css" text="ADD">
+         <effect>
+            <InnerShadow blurType="ONE_PASS_BOX" choke="0.05" height="15.0" radius="7.0" width="15.0" />
+         </effect></Button>
+      <Button fx:id="deleteCatbtn" layoutX="270.0" layoutY="492.0" mnemonicParsing="false" onAction="#deleteCategory" stylesheets="@CSSCategoryWindow.css" text="Delete">
+         <effect>
+            <InnerShadow blurType="ONE_PASS_BOX" choke="0.05" height="15.0" radius="7.0" width="15.0" />
+         </effect></Button>
+      <Button fx:id="cancelbtn4" layoutX="300.0" layoutY="9.0" mnemonicParsing="false" onAction="#close" prefHeight="20.0" prefWidth="50.0" stylesheets="@CSSCategoryWindow.css" text="Exit" />
    </children>
 </AnchorPane>
