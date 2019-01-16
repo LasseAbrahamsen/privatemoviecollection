@@ -9,10 +9,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import movieplayer.be.Category;
@@ -36,6 +38,15 @@ public class MovieWindowController implements Initializable {
     @FXML private ComboBox<Integer> comboboxRating;
     @FXML private ComboBox<Category> comboboxAddCategory;
     @FXML private DatePicker datePickerLastSeen;
+    
+    //fxml instance variables used for css
+    @FXML private HBox fileInput;
+    @FXML private Button selectfilebtn;
+    @FXML private Button cancelbtn2;
+    @FXML private Button savebtn2;
+    @FXML private Label label; 
+    @FXML private Button resetCatbtn;
+    @FXML private Button addCatbtn;
     
     private ArrayList<Category> selectedCategories;
     private double imdbRating;

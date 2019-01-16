@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import movieplayer.exceptions.CreateCategoryException;
@@ -20,6 +21,10 @@ import movieplayer.gui.util.MessageBoxHelper;
 public class EditCategoriesWindowController implements Initializable {
     
     @FXML private TextField textfieldCategory;
+    
+    //fxml instance variables used for CSS
+    @FXML private Button savebtn3;
+    @FXML private Button cancelbtn3;
     
     CategoryModel cmodel = new CategoryModel();
 

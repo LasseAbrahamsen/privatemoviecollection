@@ -48,7 +48,7 @@ public class MainWindowController implements Initializable {
     @FXML private Label labelCategoryFilter;
     @FXML private ComboBox<Category> comboboxSelectCategoryFilter;
     
-    //instance variable for css
+    //fxml instance variables used for css
     @FXML private Button removeMoviebtn;
     @FXML private Button editMoviebtn;
     @FXML private Label title;
