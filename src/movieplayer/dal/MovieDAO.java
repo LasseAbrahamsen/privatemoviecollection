@@ -118,23 +118,7 @@ public class MovieDAO {
         }
     }
     
-    //Returns a list of all movies including filtering.
-    /*
-    We generate a local hashmap outside of the database. In the first iteration of the while(rs.next())
-    it jumps right into the else clause, because it checks the ID of the hashmap which doesn't contain anything.
-    In the else clause it creates a movie and associates it with its id inside the local hashmap.
-    In the following iterations of the while(rs.next()), if we encounter the same movie again (identified by
-    the id that is now inside the moviesById local hashmap) we jump inside the if clause and just add
-    categories to the single movie element.
-    
-    The whole point of the if-else is to avoid duplicating movies in the list that we return.
-    
-    At the top we also have a filtering if statement. If arraylist categoryFilter.size() > 0,
-    we make a new arraylist<String>, and for each entry in categoryFilter, we add categoryID to the list of strings.
-    Then, we join the IDs together with the String.join method, separating them with a , to make it work in the SQL statement
-    AND CatMovie.CategoryId IN (%, %, %). Finally this is added to the existing string sqlStatement.
-    */
-    
+    //Returns a list of all movies, also includes filtering.
     public ArrayList<Movie> getAllMovies(String nameFilter, double minImdbRatingFilter, ArrayList<Category> categoryFilter) throws SQLException {
         ArrayList<Movie> movies = new ArrayList<>();
         HashMap<Integer, Movie> moviesById = new HashMap<>();
